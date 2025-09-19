@@ -1,0 +1,20 @@
+apiVersion: v2
+name: user-service
+description: User Service Helm Chart for KEA Project
+
+type: application
+
+version: 0.1.0
+appVersion: "0.0.1-SNAPSHOT"
+
+keywords:
+  - user-service
+  - spring-boot
+  - microservice
+
+maintainers:
+  - name: KEA Team
+    email: mong.health@gmail.com
+
+sources:
+  - https://github.com/Octa-Cloud/user-service
