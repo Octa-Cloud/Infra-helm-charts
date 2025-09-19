@@ -1,0 +1,103 @@
+name: Helm Chart CI
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'user-service/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'user-service/**'
+  workflow_dispatch:
+
+env:
+  CHART_NAME: user-service
+
+jobs:
+  lint-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: '3.12.0'
+
+      - name: Lint Helm Chart
+        run: |
+          helm lint ${CHART_NAME}/
+          echo "✅ Helm Chart lint passed"
+
+      - name: Test Helm Chart Template
+        run: |
+          helm template ${CHART_NAME} ${CHART_NAME}/ --debug
+          echo "✅ Helm Chart template test passed"
+
+      - name: Test Helm Chart with different values
+        run: |
+          # Test with different replica counts
+          helm template ${CHART_NAME} ${CHART_NAME}/ --set replicaCount=3
+          helm template ${CHART_NAME} ${CHART_NAME}/ --set replicaCount=1
+          
+          # Test with different image tags
+          helm template ${CHART_NAME} ${CHART_NAME}/ --set image.tag=latest
+          helm template ${CHART_NAME} ${CHART_NAME}/ --set image.tag=v1.0.0
+          
+          echo "✅ Helm Chart value tests passed"
+
+      - name: Package Helm Chart
+        run: |
+          helm package ${CHART_NAME}/
+          echo "✅ Helm Chart packaged successfully"
+
+      - name: Upload Chart Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: helm-chart-package
+          path: "*.tgz"
+
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: '3.12.0'
+
+      - name: Install Helm Security Plugin
+        run: |
+          helm plugin install https://github.com/securecodewarrior/helm-security-scan
+
+      - name: Security Scan
+        run: |
+          helm security-scan ${CHART_NAME}/
+          echo "✅ Security scan completed"
+
+  chart-releaser:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+        with:
+          version: '3.12.0'
+
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.6.0
+        with:
+          charts_dir: .
+          config: cr.yaml
+          skip_packaging: true
