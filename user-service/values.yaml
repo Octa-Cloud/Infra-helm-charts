@@ -109,7 +109,7 @@ env:
   REDIS_HOST: "redis-service"
   REDIS_PORT: "6379"
   MONGODB_URI: "mongodb://admin:password@mongodb-service:27017/user_db?authSource=admin"
-  JWT_SECRET: "K0tFWMZokpiSj6ABi42XJpNWbBqUJ4UT3mhLrXk//Ij26TgQy2Bw6CYJnQ=="
+  JWT_SECRET: "KItFWMZokpiSj6ABi42XJpNWbBqUJ4UT3mhLrXk//IjI2TgQy2Bk+2KrCk4cQDl8oFsSYH9Gr++Lqr2w6CYJnQ=="
   SMTP_HOST: "smtp.gmail.com"
   SMTP_PORT: "587"
   SMTP_USERNAME: "mong.health@gmail.com"
@@ -118,7 +118,7 @@ env:
 # Secrets configuration (will be overridden by ArgoCD)
 secrets:
   create: true
-  jwtSecret: "K0tFWMZokpiSj6ABi42XJpNWbBqUJ4UT3mhLrXk//Ij26TgQy2Bw6CYJnQ=="
+  jwtSecret: "KItFWMZokpiSj6ABi42XJpNWbBqUJ4UT3mhLrXk//IjI2TgQy2Bk+2KrCk4cQDl8oFsSYH9Gr++Lqr2w6CYJnQ=="
   smtpUsername: "mong.health@gmail.com"
   smtpPassword: "eynexfrufjykutlw"
 
@@ -133,7 +133,7 @@ configMap:
     REDIS_HOST: "redis-service"
     REDIS_PORT: "6379"
     MONGODB_URI: "mongodb://admin:password@mongodb-service:27017/user_db?authSource=admin"
-    JWT_SECRET: "K0tFWMZokpiSj6ABi42XJpNWbBqUJ4UT3mhLrXk//Ij26TgQy2Bw6CYJnQ=="
+    JWT_SECRET: "KItFWMZokpiSj6ABi42XJpNWbBqUJ4UT3mhLrXk//IjI2TgQy2Bk+2KrCk4cQDl8oFsSYH9Gr++Lqr2w6CYJnQ=="
     SMTP_HOST: "smtp.gmail.com"
     SMTP_PORT: "587"
     SMTP_USERNAME: "mong.health@gmail.com"
