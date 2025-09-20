@@ -1,0 +1,41 @@
+replicaCount: 1
+image:
+  repository: asia-northeast3-docker.pkg.dev/mong-gcp/microservices/user-service
+  tag: f8fb3055a36e496ed7c7acc745de1f22b6bb1072-17876929174
+  pullPolicy: IfNotPresent
+fullnameOverride: "user-service"
+service:
+  port: 8080
+dependency:
+  mysql:
+    service_name: "mong-gcp:asia-northeast3:microservices-mysql"
+    port: 3306
+resources:
+  requests:
+    cpu: "200m"
+    memory: "512Mi"
+  limits:
+    cpu: "500m"
+    memory: "1Gi"
+livenessProbe:
+  httpGet:
+    path: /actuator/health
+    port: http
+  initialDelaySeconds: 200
+  periodSeconds: 5
+  failureThreshold: 3
+readinessProbe:
+  httpGet:
+    path: /actuator/health
+    port: http
+  initialDelaySeconds: 200
+  periodSeconds: 5
+  failureThreshold: 3
+config:
+  SPRING_PROFILES_ACTIVE: "dev"
+  RDB_URL: "jdbc:mysql://mysql-service:3306/mong?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true"
+  RDB_USERNAME: "root"
+  REDIS_HOST: "redis-service"
+  REDIS_PORT: "6379"
+  SMTP_HOST: "smtp.gmail.com"
+  SMTP_PORT: "587"
