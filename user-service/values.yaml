@@ -3,34 +3,26 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
-
 image:
   repository: asia-northeast3-docker.pkg.dev/mong-gcp/microservices/user-service
   pullPolicy: IfNotPresent
-  tag: "latest"
-
+  tag: "bd10882b432e7484f73884954e5ce630f6a50c9b-17876082541"
 imagePullSecrets: []
-
 nameOverride: ""
 fullnameOverride: ""
-
 serviceAccount:
   create: true
   automount: true
   annotations: {}
   name: ""
-
 podAnnotations: {}
 podLabels: {}
-
 podSecurityContext: {}
 securityContext: {}
-
 service:
   type: LoadBalancer
   port: 8080
   targetPort: 8080
-
 ingress:
   enabled: false
   className: ""
@@ -41,21 +33,19 @@ ingress:
         - path: /
           pathType: Prefix
   tls: []
-
 httpRoute:
   enabled: false
   annotations: {}
   parentRefs:
-  - name: gateway
-    sectionName: http
+    - name: gateway
+      sectionName: http
   hostnames:
-  - user-service.local
+    - user-service.local
   rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /
-
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
 resources:
   limits:
     cpu: 500m
@@ -63,7 +53,6 @@ resources:
   requests:
     cpu: 100m
     memory: 256Mi
-
 livenessProbe:
   httpGet:
     path: /v3/api-docs
@@ -72,7 +61,6 @@ livenessProbe:
   periodSeconds: 30
   timeoutSeconds: 5
   failureThreshold: 3
-
 readinessProbe:
   httpGet:
     path: /v3/api-docs
@@ -81,25 +69,20 @@ readinessProbe:
   periodSeconds: 5
   timeoutSeconds: 3
   failureThreshold: 3
-
 autoscaling:
   enabled: false
   minReplicas: 1
   maxReplicas: 10
   targetCPUUtilizationPercentage: 80
-
 volumes: []
 volumeMounts: []
-
 nodeSelector: {}
 tolerations: []
 affinity: {}
-
 # Application specific configuration
 app:
   name: user-service
   version: "0.0.1-SNAPSHOT"
-
 # Environment variables (will be overridden by ArgoCD)
 env:
   SPRING_PROFILES_ACTIVE: "dev"
@@ -114,14 +97,12 @@ env:
   SMTP_PORT: "587"
   SMTP_USERNAME: "mong.health@gmail.com"
   SMTP_PASSWORD: "eynexfrufjykutlw"
-
 # Secrets configuration (will be overridden by ArgoCD)
 secrets:
   create: true
   jwtSecret: "KItFWMZokpiSj6ABi42XJpNWbBqUJ4UT3mhLrXk//IjI2TgQy2Bk+2KrCk4cQDl8oFsSYH9Gr++Lqr2w6CYJnQ=="
   smtpUsername: "mong.health@gmail.com"
   smtpPassword: "eynexfrufjykutlw"
-
 # ConfigMap configuration (will be overridden by ArgoCD)
 configMap:
   create: true
