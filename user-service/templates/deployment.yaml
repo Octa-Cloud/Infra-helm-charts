@@ -70,6 +70,16 @@ spec:
                 secretKeyRef:
                   name: {{ include "user-service.fullname" $ }}-smtp
                   key: smtp-password
+            - name: RDB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "user-service.fullname" $ }}-secret
+                  key: rdb-password
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "user-service.fullname" $ }}-secret
+                  key: mongodb-uri
             {{- end }}
           {{- with .Values.livenessProbe }}
           livenessProbe:

@@ -3,34 +3,26 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
-
 image:
   repository: asia-northeast3-docker.pkg.dev/mong-gcp/microservices/user-service
   pullPolicy: IfNotPresent
-  tag: "latest"
-
+  tag: "bd10882b432e7484f73884954e5ce630f6a50c9b-17876082541"
 imagePullSecrets: []
-
 nameOverride: ""
 fullnameOverride: ""
-
 serviceAccount:
   create: true
   automount: true
   annotations: {}
   name: ""
-
 podAnnotations: {}
 podLabels: {}
-
 podSecurityContext: {}
 securityContext: {}
-
 service:
   type: LoadBalancer
   port: 8080
   targetPort: 8080
-
 ingress:
   enabled: false
   className: ""
@@ -41,21 +33,19 @@ ingress:
         - path: /
           pathType: Prefix
   tls: []
-
 httpRoute:
   enabled: false
   annotations: {}
   parentRefs:
-  - name: gateway
-    sectionName: http
+    - name: gateway
+      sectionName: http
   hostnames:
-  - user-service.local
+    - user-service.local
   rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /
-
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
 resources:
   limits:
     cpu: 500m
@@ -63,7 +53,6 @@ resources:
   requests:
     cpu: 100m
     memory: 256Mi
-
 livenessProbe:
   httpGet:
     path: /v3/api-docs
@@ -72,7 +61,6 @@ livenessProbe:
   periodSeconds: 30
   timeoutSeconds: 5
   failureThreshold: 3
-
 readinessProbe:
   httpGet:
     path: /v3/api-docs
@@ -81,44 +69,38 @@ readinessProbe:
   periodSeconds: 5
   timeoutSeconds: 3
   failureThreshold: 3
-
 autoscaling:
   enabled: false
   minReplicas: 1
   maxReplicas: 10
   targetCPUUtilizationPercentage: 80
-
 volumes: []
 volumeMounts: []
-
 nodeSelector: {}
 tolerations: []
 affinity: {}
-
 # Application specific configuration
 app:
   name: user-service
   version: "0.0.1-SNAPSHOT"
-
 # Environment variables (will be overridden by ArgoCD)
 env:
   SPRING_PROFILES_ACTIVE: "dev"
   RDB_URL: "jdbc:mysql://mysql-service:3306/mong?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true"
   RDB_USERNAME: "root"
-  RDB_PASSWORD: "rlarudrb119"
   REDIS_HOST: "redis-service"
   REDIS_PORT: "6379"
-  MONGODB_URI: "mongodb://admin:password@mongodb-service:27017/user_db?authSource=admin"
-  JWT_SECRET: "KItFWMZokpiSj6ABi42XJpNWbBqUJ4UT3mhLrXk//IjI2TgQy2Bk+2KrCk4cQDl8oFsSYH9Gr++Lqr2w6CYJnQ=="
   SMTP_HOST: "smtp.gmail.com"
   SMTP_PORT: "587"
 
 # Secrets configuration (will be overridden by ArgoCD)
 secrets:
   create: true
-  jwtSecret: "KItFWMZokpiSj6ABi42XJpNWbBqUJ4UT3mhLrXk//IjI2TgQy2Bk+2KrCk4cQDl8oFsSYH9Gr++Lqr2w6CYJnQ=="
+  jwtSecret: ""
   smtpUsername: "mong.health@gmail.com"
   smtpPassword: ""
+  rdbPassword: ""
+  mongodbUri: ""
 
 # ConfigMap configuration (will be overridden by ArgoCD)
 configMap:
@@ -127,10 +109,7 @@ configMap:
     SPRING_PROFILES_ACTIVE: "dev"
     RDB_URL: "jdbc:mysql://mysql-service:3306/mong?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true"
     RDB_USERNAME: "root"
-    RDB_PASSWORD: "rlarudrb119"
     REDIS_HOST: "redis-service"
     REDIS_PORT: "6379"
-    MONGODB_URI: "mongodb://admin:password@mongodb-service:27017/user_db?authSource=admin"
-    JWT_SECRET: "KItFWMZokpiSj6ABi42XJpNWbBqUJ4UT3mhLrXk//IjI2TgQy2Bk+2KrCk4cQDl8oFsSYH9Gr++Lqr2w6CYJnQ=="
     SMTP_HOST: "smtp.gmail.com"
     SMTP_PORT: "587"
