@@ -56,7 +56,7 @@ resources:
 livenessProbe:
   httpGet:
     path: /v3/api-docs
-    port: http
+    port: 8080
   initialDelaySeconds: 60
   periodSeconds: 30
   timeoutSeconds: 5
@@ -64,7 +64,7 @@ livenessProbe:
 readinessProbe:
   httpGet:
     path: /v3/api-docs
-    port: http
+    port: 8080
   initialDelaySeconds: 10
   periodSeconds: 5
   timeoutSeconds: 3
