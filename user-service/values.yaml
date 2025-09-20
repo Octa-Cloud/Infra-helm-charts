@@ -6,7 +6,7 @@ replicaCount: 1
 image:
   repository: asia-northeast3-docker.pkg.dev/mong-gcp/microservices/user-service
   pullPolicy: IfNotPresent
-  tag: "bd10882b432e7484f73884954e5ce630f6a50c9b-17876082541"
+  tag: 0114e12770a771d21d5265501f75d3c05dec466a-17876680517
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
@@ -92,7 +92,6 @@ env:
   REDIS_PORT: "6379"
   SMTP_HOST: "smtp.gmail.com"
   SMTP_PORT: "587"
-
 # Secrets configuration (will be overridden by ArgoCD)
 secrets:
   create: true
@@ -101,7 +100,6 @@ secrets:
   smtpPassword: ""
   rdbPassword: ""
   mongodbUri: ""
-
 # ConfigMap configuration (will be overridden by ArgoCD)
 configMap:
   create: true
