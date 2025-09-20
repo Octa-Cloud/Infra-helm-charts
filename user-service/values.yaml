@@ -6,10 +6,10 @@ image:
 fullnameOverride: "user-service"
 service:
   port: 8080
-dependency:
-  mysql:
-    service_name: "mong-gcp:asia-northeast3:microservices-mysql"
-    port: 3306
+# dependency:
+#   mysql:
+#     service_name: "mong-gcp:asia-northeast3:microservices-mysql"
+#     port: 3306
 resources:
   requests:
     cpu: "200m"
@@ -33,9 +33,9 @@ readinessProbe:
   failureThreshold: 3
 config:
   SPRING_PROFILES_ACTIVE: "dev"
-  RDB_URL: "jdbc:mysql://mysql-service:3306/mong?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true"
+  RDB_URL: "jdbc:mysql://10.3.202.113:3306/mong?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true"
   RDB_USERNAME: "root"
-  REDIS_HOST: "redis-service"
+  REDIS_HOST: "10.3.191.17"
   REDIS_PORT: "6379"
   SMTP_HOST: "smtp.gmail.com"
   SMTP_PORT: "587"
