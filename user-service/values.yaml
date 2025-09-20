@@ -112,15 +112,13 @@ env:
   JWT_SECRET: "KItFWMZokpiSj6ABi42XJpNWbBqUJ4UT3mhLrXk//IjI2TgQy2Bk+2KrCk4cQDl8oFsSYH9Gr++Lqr2w6CYJnQ=="
   SMTP_HOST: "smtp.gmail.com"
   SMTP_PORT: "587"
-  SMTP_USERNAME: "mong.health@gmail.com"
-  SMTP_PASSWORD: "eynexfrufjykutlw"
 
 # Secrets configuration (will be overridden by ArgoCD)
 secrets:
   create: true
   jwtSecret: "KItFWMZokpiSj6ABi42XJpNWbBqUJ4UT3mhLrXk//IjI2TgQy2Bk+2KrCk4cQDl8oFsSYH9Gr++Lqr2w6CYJnQ=="
   smtpUsername: "mong.health@gmail.com"
-  smtpPassword: "eynexfrufjykutlw"
+  smtpPassword: ""
 
 # ConfigMap configuration (will be overridden by ArgoCD)
 configMap:
@@ -136,5 +134,3 @@ configMap:
     JWT_SECRET: "KItFWMZokpiSj6ABi42XJpNWbBqUJ4UT3mhLrXk//IjI2TgQy2Bk+2KrCk4cQDl8oFsSYH9Gr++Lqr2w6CYJnQ=="
     SMTP_HOST: "smtp.gmail.com"
     SMTP_PORT: "587"
-    SMTP_USERNAME: "mong.health@gmail.com"
-    SMTP_PASSWORD: "eynexfrufjykutlw"
