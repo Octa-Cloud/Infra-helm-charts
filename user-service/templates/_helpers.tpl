@@ -1,4 +1,4 @@
-{{- define "user-service-chart.fullname" -}}
+{{- define "user-service.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -11,12 +11,12 @@
 {{- end }}
 {{- end }}
 
-{{- define "user-service-chart.labels" -}}
+{{- define "user-service.labels" -}}
 app.kubernetes.io/name: user-service
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
-{{- define "user-service-chart.selectorLabels" -}}
+{{- define "user-service.selectorLabels" -}}
 app.kubernetes.io/name: user-service
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}

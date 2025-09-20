@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "user-service-chart.fullname" . }}
+  name: {{ include "user-service.fullname" . }}
   labels:
-    {{- include "user-service-chart.labels" . | nindent 4 }}
+    {{- include "user-service.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      {{- include "user-service-chart.selectorLabels" . | nindent 6 }}
+      {{- include "user-service.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       name: user-service
       labels:
-        {{- include "user-service-chart.labels" . | nindent 8 }}
+        {{- include "user-service.labels" . | nindent 8 }}
     spec:
       containers:
         - name: user-service
@@ -27,7 +27,7 @@ spec:
               protocol: TCP
           envFrom:
             - configMapRef:
-                name: {{ include "user-service-chart.fullname" . }}-configmap
+                name: {{ include "user-service.fullname" . }}-configmap
             - secretRef:
                 name: user-service-secret
           livenessProbe:
