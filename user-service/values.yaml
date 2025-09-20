@@ -7,7 +7,7 @@ revisionHistoryLimit: 3
 image:
   repository: asia-northeast3-docker.pkg.dev/mong-gcp/microservices/user-service
   pullPolicy: IfNotPresent
-  tag: 90ad585043b7e03a6025a3492c49c5d59e8d8f24-17876744944
+  tag: f8fb3055a36e496ed7c7acc745de1f22b6bb1072-17876929174
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
