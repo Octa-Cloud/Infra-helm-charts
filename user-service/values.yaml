@@ -1,7 +1,7 @@
 replicaCount: 1
 image:
   repository: asia-northeast3-docker.pkg.dev/mong-gcp/microservices/user-service
-  tag: 252d60107f8ed2d4872296f88f9742750a1e0d5e-17878577225
+  tag: 3fb580c26a4121559835d32d35a815e89c7037c5-17886812441
   pullPolicy: IfNotPresent
 fullnameOverride: "user-service"
 service:
