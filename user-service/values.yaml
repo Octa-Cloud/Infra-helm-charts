@@ -46,20 +46,17 @@ service:
 
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
-  enabled: false
-  className: ""
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  enabled: true
+  className: "nginx"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /
   hosts:
-    - host: chart-example.local
+    - host: user-service.mong-develop.com
       paths:
         - path: /
-          pathType: ImplementationSpecific
+          pathType: Prefix
   tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
 
 # -- Expose the service via gateway-api HTTPRoute
 # Requires Gateway API resources and suitable controller installed within the cluster
@@ -111,17 +108,19 @@ livenessProbe:
   httpGet:
     path: /actuator/health
     port: 8080
-  initialDelaySeconds: 60
-  periodSeconds: 10
-  failureThreshold: 3
+  initialDelaySeconds: 300
+  periodSeconds: 30
+  failureThreshold: 5
+  timeoutSeconds: 10
 
 readinessProbe:
   httpGet:
     path: /actuator/health
     port: 8080
-  initialDelaySeconds: 60
-  periodSeconds: 10
-  failureThreshold: 3
+  initialDelaySeconds: 300
+  periodSeconds: 30
+  failureThreshold: 5
+  timeoutSeconds: 10
 
 autoscaling:
   enabled: false
@@ -132,9 +131,9 @@ autoscaling:
 # Environment variables
 env:
   SPRING_PROFILES_ACTIVE: "dev"
-  RDB_URL: "jdbc:mysql://10.1.0.88:3306/mong?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true"
+  RDB_URL: "jdbc:mysql://localhost:5432/mong?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true"
   RDB_USERNAME: "root"
-  REDIS_HOST: "10.3.191.17"
+  REDIS_HOST: "10.226.34.155"
   REDIS_PORT: "6379"
   SMTP_HOST: "smtp.gmail.com"
   SMTP_PORT: "587"
@@ -148,6 +147,13 @@ secrets:
 configMap:
   create: true
   name: ""
+
+# Cloud SQL Auth Proxy configuration
+cloudSqlProxy:
+  enabled: true
+  image: gcr.io/cloudsql-docker/gce-proxy:latest
+  port: 5432
+  instance: mong-develop:asia-northeast3:mong-mysql
 
 nodeSelector: {}
 tolerations: []

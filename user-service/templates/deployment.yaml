@@ -8,6 +8,7 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  progressDeadlineSeconds: 1200
   selector:
     matchLabels:
       {{- include "user-service.selectorLabels" . | nindent 6 }}
@@ -120,9 +121,29 @@ spec:
           volumeMounts:
             {{- toYaml . | nindent 12 }}
           {{- end }}
+        {{- if .Values.cloudSqlProxy.enabled }}
+        - name: cloud-sql-proxy
+          image: {{ .Values.cloudSqlProxy.image }}
+          command:
+            - "/cloud_sql_proxy"
+            - "-instances={{ .Values.cloudSqlProxy.instance }}=tcp:{{ .Values.cloudSqlProxy.port }}"
+            - "-credential_file=/secrets/cloudsql/credentials.json"
+          securityContext:
+            runAsNonRoot: true
+          volumeMounts:
+            - name: cloudsql-instance-credentials
+              mountPath: /secrets/cloudsql
+              readOnly: true
+        {{- end }}
       {{- with .Values.volumes }}
       volumes:
         {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- if .Values.cloudSqlProxy.enabled }}
+      volumes:
+        - name: cloudsql-instance-credentials
+          secret:
+            secretName: cloud-sql-instance-credentials
       {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
