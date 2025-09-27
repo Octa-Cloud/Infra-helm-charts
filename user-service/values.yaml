@@ -39,3 +39,8 @@ config:
   REDIS_PORT: "6379"
   SMTP_HOST: "smtp.gmail.com"
   SMTP_PORT: "587"
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 70
