@@ -119,7 +119,7 @@ autoscaling:
 # Environment variables
 env:
   SPRING_PROFILES_ACTIVE: "dev"
-  RDB_URL: "jdbc:mysql://localhost:5432/mong?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true"
+  RDB_URL: "jdbc:mysql://localhost:5432/mong?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true&enableIAMAuth=true"
   RDB_USERNAME: "root"
   REDIS_HOST: "10.226.34.155"
   REDIS_PORT: "6379"
