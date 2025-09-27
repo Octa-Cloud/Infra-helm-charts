@@ -5,33 +5,111 @@ metadata:
   labels:
     {{- include "user-service.labels" . | nindent 4 }}
 spec:
+  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
+  {{- end }}
   selector:
     matchLabels:
       {{- include "user-service.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      name: user-service
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       labels:
         {{- include "user-service.labels" . | nindent 8 }}
+        {{- with .Values.podLabels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
     spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "user-service.serviceAccountName" . }}
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
-        - name: user-service
-          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        - name: {{ .Chart.Name }}
+          {{- with .Values.securityContext }}
+          securityContext:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          resources:
-            {{- toYaml .Values.resources | nindent 12 }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.port }}
+              containerPort: {{ .Values.service.targetPort }}
               protocol: TCP
-          envFrom:
-            - configMapRef:
-                name: {{ include "user-service.fullname" . }}-configmap
-            - secretRef:
-                name: user-service-secret
+          env:
+            {{- if .Values.configMap.create }}
+            {{- range $key, $value := .Values.configMap.data }}
+            - name: {{ $key }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "user-service.fullname" $ }}-config
+                  key: {{ $key }}
+            {{- end }}
+            {{- end }}
+            {{- if .Values.secrets.create }}
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "user-service.fullname" $ }}-secret
+                  key: jwt-secret
+            - name: SMTP_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "user-service.fullname" $ }}-secret
+                  key: smtp-username
+            - name: SMTP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "user-service.fullname" $ }}-smtp
+                  key: smtp-password
+            - name: RDB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "user-service.fullname" $ }}-secret
+                  key: rdb-password
+            - name: MONGODB_URI
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "user-service.fullname" $ }}-secret
+                  key: mongodb-uri
+            {{- end }}
+          {{- with .Values.livenessProbe }}
           livenessProbe:
-            {{- toYaml .Values.livenessProbe | nindent 12 }}
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.readinessProbe }}
           readinessProbe:
-            {{- toYaml .Values.readinessProbe | nindent 12 }}
-      restartPolicy: Always
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- with .Values.volumeMounts }}
+          volumeMounts:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
+      {{- with .Values.volumes }}
+      volumes:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

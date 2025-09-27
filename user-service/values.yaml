@@ -33,7 +33,7 @@ readinessProbe:
   failureThreshold: 3
 config:
   SPRING_PROFILES_ACTIVE: "dev"
-  RDB_URL: "jdbc:mysql://10.3.202.113:3306/mong?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true"
+  RDB_URL: "jdbc:mysql://10.1.0.88:3306/mong?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true"
   RDB_USERNAME: "root"
   REDIS_HOST: "10.3.191.17"
   REDIS_PORT: "6379"
