@@ -2,7 +2,7 @@
 replicaCount: 1
 
 image:
-  repository: asia-northeast3-docker.pkg.dev/mong-gcp/microservices/user-service
+  repository: koungq/user-service
   pullPolicy: IfNotPresent
   tag: "latest"
 
