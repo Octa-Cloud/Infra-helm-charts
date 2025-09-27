@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: octacloud/user-service
   pullPolicy: IfNotPresent
-  tag: "473dce5e7c6d084c710a183e5efbd3b75648368c-18057426543"
+  tag: "c9a33cbc3c106e881503b8fa5d4e7194300fa519-18059436260"
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: "user-service"
@@ -76,21 +76,21 @@ httpRoute:
         - path:
             type: PathPrefix
             value: /headers
-  #   filters:
-  #   - type: RequestHeaderModifier
-  #     requestHeaderModifier:
-  #       set:
-  #       - name: My-Overwrite-Header
-  #         value: this-is-the-only-value
-  #       remove:
-  #       - User-Agent
-  # - matches:
-  #   - path:
-  #       type: PathPrefix
-  #       value: /echo
-  #     headers:
-  #     - name: version
-  #       value: v2
+            #   filters:
+            #   - type: RequestHeaderModifier
+            #     requestHeaderModifier:
+            #       set:
+            #       - name: My-Overwrite-Header
+            #         value: this-is-the-only-value
+            #       remove:
+            #       - User-Agent
+            # - matches:
+            #   - path:
+            #       type: PathPrefix
+            #       value: /echo
+            #     headers:
+            #     - name: version
+            #       value: v2
 resources:
   limits:
     cpu: 500m
