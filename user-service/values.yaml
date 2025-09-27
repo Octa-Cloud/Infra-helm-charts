@@ -2,7 +2,7 @@
 replicaCount: 1
 
 image:
-  repository: koungq/user-service
+  repository: octacloud/user-service
   pullPolicy: IfNotPresent
   tag: "latest"
 
