@@ -121,8 +121,8 @@ env:
   SPRING_PROFILES_ACTIVE: "dev"
   RDB_URL: "jdbc:mysql://localhost:3306/mong?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true"
   RDB_USERNAME: "monguser"
-  REDIS_HOST: "10.226.34.155"
-  REDIS_PORT: "6379"
+  SPRING_DATA_REDIS_HOST: "10.226.34.155"
+  SPRING_DATA_REDIS_PORT: "6379"
   SMTP_HOST: "smtp.gmail.com"
   SMTP_PORT: "587"
 # Secrets
