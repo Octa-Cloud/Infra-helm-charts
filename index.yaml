@@ -3,9 +3,9 @@ entries:
   user-service:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-09-27T15:00:35.033386+09:00"
+    created: "2025-09-27T15:02:12.792545+09:00"
     description: User Service Helm Chart for KEA Project
-    digest: 6fbba55ff63345911475552bf5aba529b38bc63b1d19ee314d3510166acbaffa
+    digest: 599680f6a2dfef3db7fba8abfc8662f7f9754ccabe5a05541c49be2b597fb51c
     keywords:
     - user-service
     - spring-boot
@@ -19,4 +19,4 @@ entries:
     urls:
     - https://github.com/Octa-Cloud/Infra-helm-charts/user-service/user-service-0.1.0.tgz
     version: 0.1.0
-generated: "2025-09-27T15:00:35.032382+09:00"
+generated: "2025-09-27T15:02:12.792011+09:00"
