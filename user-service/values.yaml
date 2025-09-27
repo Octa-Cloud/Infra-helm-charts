@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: octacloud/user-service
   pullPolicy: IfNotPresent
-  tag: "c9a33cbc3c106e881503b8fa5d4e7194300fa519-18059436260"
+  tag: "533fd272b972885d47f1c41d07c1cc98a2f029a5-18061300407"
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: "user-service"
@@ -133,14 +133,12 @@ secrets:
 configMap:
   create: true
   name: ""
-
 # Cloud SQL Auth Proxy configuration
 cloudSqlProxy:
   enabled: true
   image: gcr.io/cloudsql-docker/gce-proxy:latest
   port: 3306
   instance: mong-develop:asia-northeast3:mong-mysql
-
 nodeSelector: {}
 tolerations: []
 affinity: {}
