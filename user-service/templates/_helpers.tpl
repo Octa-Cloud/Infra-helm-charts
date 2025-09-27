@@ -20,3 +20,11 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/name: user-service
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
+
+{{- define "user-service.serviceAccountName" -}}
+{{- if .Values.serviceAccount.create -}}
+{{- default (include "user-service.fullname" .) .Values.serviceAccount.name -}}
+{{- else -}}
+{{- default "default" .Values.serviceAccount.name -}}
+{{- end -}}
+{{- end -}}
