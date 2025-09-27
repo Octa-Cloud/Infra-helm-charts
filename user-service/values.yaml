@@ -1,15 +1,12 @@
 # Default values for user-service.
 replicaCount: 1
-
 image:
   repository: octacloud/user-service
   pullPolicy: IfNotPresent
-  tag: "latest"
-
+  tag: "c9a33cbc3c106e881503b8fa5d4e7194300fa519-18059436260"
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: "user-service"
-
 # This section builds out the service account more information can be found here: https://kubernetes.io/docs/concepts/security/service-accounts/
 serviceAccount:
   # Specifies whether a service account should be created
@@ -21,43 +18,54 @@ serviceAccount:
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
   name: ""
-
 # This is for setting Kubernetes Annotations to a Pod.
 # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/
 podAnnotations: {}
 # This is for setting Kubernetes Labels to a Pod.
 # For more information checkout: https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/
 podLabels: {}
-
 podSecurityContext: {}
-  # fsGroup: 2000
+# fsGroup: 2000
 
 securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
+# capabilities:
+#   drop:
+#   - ALL
+# readOnlyRootFilesystem: true
+# runAsNonRoot: true
+# runAsUser: 1000
 
 service:
   type: ClusterIP
   port: 8080
-
 # This block is for setting up the ingress for more information can be found here: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ingress:
+<<<<<<< HEAD
   enabled: true
   className: "nginx"
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/rewrite-target: /
+=======
+  enabled: false
+  className: ""
+  annotations: {}
+  # kubernetes.io/ingress.class: nginx
+  # kubernetes.io/tls-acme: "true"
+>>>>>>> aac41accacc95b8626c59cd988980a93d5421524
   hosts:
     - host: user-service.mong-develop.com
       paths:
         - path: /
           pathType: Prefix
   tls: []
+<<<<<<< HEAD
 
+=======
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+>>>>>>> aac41accacc95b8626c59cd988980a93d5421524
 # -- Expose the service via gateway-api HTTPRoute
 # Requires Gateway API resources and suitable controller installed within the cluster
 # (see: https://gateway-api.sigs.k8s.io/guides/)
@@ -68,34 +76,33 @@ httpRoute:
   annotations: {}
   # Which Gateways this Route is attached to.
   parentRefs:
-  - name: gateway
-    sectionName: http
-    # namespace: default
+    - name: gateway
+      sectionName: http
+      # namespace: default
   # Hostnames matching HTTP header.
   hostnames:
-  - chart-example.local
+    - chart-example.local
   # List of rules and filters applied.
   rules:
-  - matches:
-    - path:
-        type: PathPrefix
-        value: /headers
-  #   filters:
-  #   - type: RequestHeaderModifier
-  #     requestHeaderModifier:
-  #       set:
-  #       - name: My-Overwrite-Header
-  #         value: this-is-the-only-value
-  #       remove:
-  #       - User-Agent
-  # - matches:
-  #   - path:
-  #       type: PathPrefix
-  #       value: /echo
-  #     headers:
-  #     - name: version
-  #       value: v2
-
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /headers
+            #   filters:
+            #   - type: RequestHeaderModifier
+            #     requestHeaderModifier:
+            #       set:
+            #       - name: My-Overwrite-Header
+            #         value: this-is-the-only-value
+            #       remove:
+            #       - User-Agent
+            # - matches:
+            #   - path:
+            #       type: PathPrefix
+            #       value: /echo
+            #     headers:
+            #     - name: version
+            #       value: v2
 resources:
   limits:
     cpu: 500m
@@ -103,7 +110,6 @@ resources:
   requests:
     cpu: 200m
     memory: 512Mi
-
 livenessProbe:
   httpGet:
     path: /actuator/health
@@ -112,7 +118,6 @@ livenessProbe:
   periodSeconds: 30
   failureThreshold: 5
   timeoutSeconds: 10
-
 readinessProbe:
   httpGet:
     path: /actuator/health
@@ -121,13 +126,11 @@ readinessProbe:
   periodSeconds: 30
   failureThreshold: 5
   timeoutSeconds: 10
-
 autoscaling:
   enabled: false
   minReplicas: 1
   maxReplicas: 3
   targetCPUUtilizationPercentage: 70
-
 # Environment variables
 env:
   SPRING_PROFILES_ACTIVE: "dev"
@@ -137,16 +140,15 @@ env:
   REDIS_PORT: "6379"
   SMTP_HOST: "smtp.gmail.com"
   SMTP_PORT: "587"
-
 # Secrets
 secrets:
   create: true
   name: ""
-
 # ConfigMap
 configMap:
   create: true
   name: ""
+<<<<<<< HEAD
 
 # Cloud SQL Auth Proxy configuration
 cloudSqlProxy:
@@ -155,6 +157,8 @@ cloudSqlProxy:
   port: 5432
   instance: mong-develop:asia-northeast3:mong-mysql
 
+=======
+>>>>>>> aac41accacc95b8626c59cd988980a93d5421524
 nodeSelector: {}
 tolerations: []
 affinity: {}
