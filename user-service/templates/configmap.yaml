@@ -1,13 +1,12 @@
+{{- if .Values.configMap.create }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ include "user-service.fullname" . }}-configmap
-  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "user-service.labels" . | nindent 4 }}
 data:
-  SPRING_PROFILES_ACTIVE: {{ .Values.config.SPRING_PROFILES_ACTIVE | quote }}
-  RDB_URL: {{ .Values.config.RDB_URL | quote }}
-  RDB_USERNAME: {{ .Values.config.RDB_USERNAME | quote }}
-  REDIS_HOST: {{ .Values.config.REDIS_HOST | quote }}
-  REDIS_PORT: {{ .Values.config.REDIS_PORT | quote }}
-  SMTP_HOST: {{ .Values.config.SMTP_HOST | quote }}
-  SMTP_PORT: {{ .Values.config.SMTP_PORT | quote }}
+  {{- range $key, $value := .Values.env }}
+  {{ $key }}: {{ $value | quote }}
+  {{- end }}
+{{- end }}

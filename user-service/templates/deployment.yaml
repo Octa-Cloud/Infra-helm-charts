@@ -42,44 +42,67 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.targetPort }}
+              containerPort: {{ .Values.service.port }}
               protocol: TCP
           env:
             {{- if .Values.configMap.create }}
-            {{- range $key, $value := .Values.configMap.data }}
-            - name: {{ $key }}
+            - name: SPRING_PROFILES_ACTIVE
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "user-service.fullname" $ }}-config
-                  key: {{ $key }}
-            {{- end }}
+                  name: {{ include "user-service.fullname" . }}-configmap
+                  key: SPRING_PROFILES_ACTIVE
+            - name: RDB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "user-service.fullname" . }}-configmap
+                  key: RDB_URL
+            - name: RDB_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "user-service.fullname" . }}-configmap
+                  key: RDB_USERNAME
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "user-service.fullname" . }}-configmap
+                  key: REDIS_HOST
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "user-service.fullname" . }}-configmap
+                  key: REDIS_PORT
+            - name: SMTP_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "user-service.fullname" . }}-configmap
+                  key: SMTP_HOST
+            - name: SMTP_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "user-service.fullname" . }}-configmap
+                  key: SMTP_PORT
             {{- end }}
             {{- if .Values.secrets.create }}
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "user-service.fullname" $ }}-secret
+                  name: {{ include "user-service.fullname" . }}-secret
                   key: jwt-secret
             - name: SMTP_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "user-service.fullname" $ }}-secret
+                  name: {{ include "user-service.fullname" . }}-secret
                   key: smtp-username
             - name: SMTP_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "user-service.fullname" $ }}-smtp
+                  name: {{ include "user-service.fullname" . }}-secret
                   key: smtp-password
             - name: RDB_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ include "user-service.fullname" $ }}-secret
+                  name: {{ include "user-service.fullname" . }}-secret
                   key: rdb-password
-            - name: MONGODB_URI
-              valueFrom:
-                secretKeyRef:
-                  name: {{ include "user-service.fullname" $ }}-secret
-                  key: mongodb-uri
             {{- end }}
           {{- with .Values.livenessProbe }}
           livenessProbe:
