@@ -128,7 +128,6 @@ spec:
             - "/cloud_sql_proxy"
             - "-instances={{ .Values.cloudSqlProxy.instance }}=tcp:{{ .Values.cloudSqlProxy.port }}"
             - "-credential_file=/secrets/cloudsql/credentials.json"
-            - "-enable_iam_login"
           securityContext:
             runAsNonRoot: true
           volumeMounts:
