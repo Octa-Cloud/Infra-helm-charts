@@ -123,6 +123,7 @@ env:
   RDB_USERNAME: "monguser"
   SPRING_DATA_REDIS_HOST: "10.226.34.155"
   SPRING_DATA_REDIS_PORT: "6379"
+  SPRING_DATA_MONGODB_URI: "mongodb://monguser:mongpassword123@10.0.0.45:27017/mong"
   SMTP_HOST: "smtp.gmail.com"
   SMTP_PORT: "587"
 # Secrets
