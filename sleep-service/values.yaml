@@ -113,7 +113,7 @@ affinity: {}
 # =============================================================================
 # 추가 설정
 # =============================================================================
-podAnnotations: {}
+podAnnotations:
   prometheus.io/scrape: "true"
   prometheus.io/path: "/actuator/prometheus"
   prometheus.io/port: "8080"
