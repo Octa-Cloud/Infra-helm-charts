@@ -146,3 +146,6 @@ cloudSqlProxy:
 nodeSelector: {}
 tolerations: []
 affinity: {}
+# Metrics
+metrics:
+  enabled: true
