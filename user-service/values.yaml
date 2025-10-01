@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: octacloud/user-service
   pullPolicy: IfNotPresent
-  tag: "26a3d97da23d167b1bb4cbdb18ab6a6e94ad3780-18155942406"
+  tag: "30bcad957e9573194e914535a481d35eef01a6fb-18160115511"
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: "user-service"
