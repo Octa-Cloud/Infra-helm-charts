@@ -70,7 +70,7 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
   hosts:
-    - host: mong-develop.com
+    - host: ""
       paths:
         - path: /swagger-ui
           pathType: Prefix

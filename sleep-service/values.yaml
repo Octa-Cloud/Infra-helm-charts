@@ -86,7 +86,7 @@ ingress:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
   hosts:
-    - host: mong-develop.com
+    - host: ""
       paths:
         - path: /api/sleep
           pathType: Prefix
