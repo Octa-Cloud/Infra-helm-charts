@@ -54,7 +54,7 @@ readinessProbe:
 # =============================================================================
 env:
   SPRING_PROFILES_ACTIVE: "dev"
-  MONGO_URI: "mongodb://monguser:mongpassword123@10.0.0.45:27017/mong"
+  MONGO_URI: "mongodb://10.0.0.45:27017/mong"
   SPRING_DATA_REDIS_HOST: "10.226.34.155"
   SPRING_DATA_REDIS_PORT: "6379"
 # =============================================================================
@@ -84,12 +84,12 @@ ingress:
   enabled: true
   className: "nginx"
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
   hosts:
-    - host: sleep-service.mong-develop.com
+    - host: mong-develop.com
       paths:
-        - path: /
-          pathType: Prefix
+        - path: /sleep-service(/|$)(.*)
+          pathType: ImplementationSpecific
   tls: []
 # =============================================================================
 # Cloud SQL Proxy 설정 (필요시)
