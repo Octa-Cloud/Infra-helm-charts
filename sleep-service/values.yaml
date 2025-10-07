@@ -84,12 +84,12 @@ ingress:
   enabled: true
   className: "nginx"
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/rewrite-target: /
   hosts:
     - host: mong-develop.com
       paths:
-        - path: /sleep-service(/|$)(.*)
-          pathType: ImplementationSpecific
+        - path: /api/sleep
+          pathType: Prefix
   tls: []
 # =============================================================================
 # Cloud SQL Proxy 설정 (필요시)
