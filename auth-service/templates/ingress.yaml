@@ -2,9 +2,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: {{ include "swagger-ui.fullname" . }}
+  name: {{ include "auth-service.fullname" . }}
   labels:
-    {{- include "swagger-ui.labels" . | nindent 4 }}
+    {{- include "auth-service.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
     {{- toYaml . | nindent 4 }}
@@ -25,7 +25,9 @@ spec:
   {{- end }}
   rules:
     {{- range .Values.ingress.hosts }}
-    - host: {{ .host | quote }}
+    - {{- if .host }}
+      host: {{ .host | quote }}
+      {{- end }}
       http:
         paths:
           {{- range .paths }}
@@ -33,9 +35,10 @@ spec:
             pathType: {{ .pathType }}
             backend:
               service:
-                name: {{ include "swagger-ui.fullname" $ }}
+                name: {{ include "auth-service.fullname" $ }}
                 port:
                   number: {{ $.Values.service.port }}
           {{- end }}
     {{- end }}
 {{- end }}
+

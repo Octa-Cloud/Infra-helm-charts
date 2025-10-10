@@ -1,6 +1,0 @@
-apiVersion: v2
-name: swagger-ui
-description: A Helm chart for Swagger UI
-type: application
-version: 0.1.0
-appVersion: "v5.9.0"
