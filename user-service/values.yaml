@@ -121,7 +121,6 @@ autoscaling:
   targetCPUUtilizationPercentage: 70
 # Environment variables
 env:
-  SPRING_PROFILES_ACTIVE: "dev"
   RDB_URL: "jdbc:mysql://localhost:3306/mong?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true"
   RDB_USERNAME: "monguser"
   SPRING_DATA_REDIS_HOST: "10.226.34.155"
