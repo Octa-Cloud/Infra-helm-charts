@@ -58,7 +58,20 @@ env:
   PYTHONUNBUFFERED: "1"
   MONGODB_URI: "mongodb://mongodb.microservices-dev.svc.cluster.local:27017/mong"
   DATABASE_URL: "mysql+pymysql://monguser:mongpassword123@localhost:3306/mong?charset=utf8mb4"
-  KAFKA_BOOTSTRAP_SERVERS: "localhost:9092"
+  KAFKA_ENABLED: "true"
+  KAFKA_BROKERS: "pkc-gq2xn.asia-northeast3.gcp.confluent.cloud:9092"
+  KAFKA_SECURITY_PROTOCOL: "SASL_SSL"
+  KAFKA_SASL_MECHANISM: "PLAIN"
+  KAFKA_SESSION_TIMEOUT_MS: "45000"
+  TOPIC_BRAINWAVE_INPUT_RAW: "brainwave.input.raw"
+  TOPIC_BRAINWAVE_SPLIT_EPOCHS: "brainwave.split.epochs"
+  TOPIC_BRAINWAVE_ANALYZED_EPOCH: "brainwave.analyzed.epoch"
+  TOPIC_BRAINWAVE_PERSIST_REQUESTS: "brainwave.persist.requests"
+  TOPIC_DLQ: "brainwave.dlq"
+  GROUP_BRAINWAVE_SPLITTER: "brainwave-splitter"
+  GROUP_BRAINWAVE_ANALYZER: "brainwave-analyzer"
+  GROUP_BRAINWAVE_AGGREGATOR: "brainwave-aggregator"
+  GROUP_BRAINWAVE_DB_WRITER: "brainwave-db-writer"
 # =============================================================================
 # 서비스 계정 설정
 # =============================================================================
@@ -78,6 +91,8 @@ secrets:
   create: true
   name: ""
   JWT_SECRET: "KItFWMZokpiSj6ABi42XJpNWbBqUJ4UT3mhLrXk//IjI2TgQy2Bk+2KrCk4cQDl8oFsSYH9Gr++Lqr2w6CYJnQ=="
+  KAFKA_SASL_USERNAME: "AGQDVMNB6DVPXFX7"
+  KAFKA_SASL_PASSWORD: "cfltBaumbQnzwuPIRS3E8S1MNrfqrsb9LXzDvUBPBrP0YQRUTfBqdD2nOKmzUXFw"
 # =============================================================================
 # Ingress 설정
 # =============================================================================
@@ -86,12 +101,16 @@ ingress:
   className: "nginx"
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
+    cert-manager.io/cluster-issuer: "letsencrypt"
   hosts:
-    - host: ""
+    - host: "mong.live"
       paths:
         - path: /api/analysis(/|$)(.*)
           pathType: ImplementationSpecific
-  tls: []
+  tls:
+    - secretName: mong-live-tls
+      hosts:
+        - "mong.live"
 # =============================================================================
 # 노드 선택자
 # =============================================================================

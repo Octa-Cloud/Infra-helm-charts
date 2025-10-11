@@ -84,12 +84,16 @@ ingress:
   className: "nginx"
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
+    cert-manager.io/cluster-issuer: "letsencrypt"
   hosts:
-    - host: ""
+    - host: "mong.live"
       paths:
         - path: /api/auth(/|$)(.*)
           pathType: ImplementationSpecific
-  tls: []
+  tls:
+    - secretName: mong-live-tls
+      hosts:
+        - "mong.live"
 # =============================================================================
 # 노드 선택자
 # =============================================================================
