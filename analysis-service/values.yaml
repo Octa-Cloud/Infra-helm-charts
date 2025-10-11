@@ -75,8 +75,9 @@ configMap:
 # Secret 설정
 # =============================================================================
 secrets:
-  create: false
+  create: true
   name: ""
+  JWT_KEY: "KItFWMZokpiSj6ABi42XJpNWbBqUJ4UT3mhLrXk//IjI2TgQy2Bk+2KrCk4cQDl8oFsSYH9Gr++Lqr2w6CYJnQ=="
 # =============================================================================
 # Ingress 설정
 # =============================================================================

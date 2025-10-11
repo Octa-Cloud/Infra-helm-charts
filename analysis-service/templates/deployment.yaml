@@ -52,6 +52,17 @@ spec:
           value: {{ $value | quote }}
         {{- end }}
         {{- end }}
+        {{- if .Values.secrets.create }}
+        {{- range $key, $value := .Values.secrets }}
+        {{- if and (ne $key "create") (ne $key "name") }}
+        - name: {{ $key }}
+          valueFrom:
+            secretKeyRef:
+              name: {{ include "analysis-service.fullname" $ }}
+              key: {{ $key }}
+        {{- end }}
+        {{- end }}
+        {{- end }}
         livenessProbe:
           {{- toYaml .Values.livenessProbe | nindent 12 }}
         readinessProbe:
