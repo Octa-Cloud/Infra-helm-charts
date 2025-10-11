@@ -47,41 +47,13 @@ spec:
               protocol: TCP
           env:
             {{- if .Values.configMap.create }}
-            - name: SPRING_PROFILES_ACTIVE
+            {{- range $key, $value := .Values.env }}
+            - name: {{ $key }}
               valueFrom:
                 configMapKeyRef:
-                  name: {{ include "user-service.fullname" . }}-configmap
-                  key: SPRING_PROFILES_ACTIVE
-            - name: RDB_URL
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "user-service.fullname" . }}-configmap
-                  key: RDB_URL
-            - name: RDB_USERNAME
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "user-service.fullname" . }}-configmap
-                  key: RDB_USERNAME
-            - name: SPRING_DATA_REDIS_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "user-service.fullname" . }}-configmap
-                  key: SPRING_DATA_REDIS_HOST
-            - name: SPRING_DATA_REDIS_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "user-service.fullname" . }}-configmap
-                  key: SPRING_DATA_REDIS_PORT
-            - name: SMTP_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "user-service.fullname" . }}-configmap
-                  key: SMTP_HOST
-            - name: SMTP_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ include "user-service.fullname" . }}-configmap
-                  key: SMTP_PORT
+                  name: {{ include "user-service.fullname" $ }}-configmap
+                  key: {{ $key }}
+            {{- end }}
             {{- end }}
             {{- if .Values.secrets.create }}
             - name: JWT_KEY
