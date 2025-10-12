@@ -15,7 +15,7 @@ image:
 service:
   type: ClusterIP
   port: 8080
-  targetPort: 8000
+  targetPort: 8080
 # =============================================================================
 # 배포 설정
 # =============================================================================
@@ -36,7 +36,7 @@ resources:
 livenessProbe:
   httpGet:
     path: /
-    port: 8000
+    port: 8080
   initialDelaySeconds: 60
   periodSeconds: 30
   failureThreshold: 5
@@ -44,7 +44,7 @@ livenessProbe:
 readinessProbe:
   httpGet:
     path: /
-    port: 8000
+    port: 8080
   initialDelaySeconds: 60
   periodSeconds: 30
   failureThreshold: 5
