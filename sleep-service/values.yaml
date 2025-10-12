@@ -76,7 +76,7 @@ secrets:
   create: true
   name: ""
   # JWT_KEY는 민감한 정보이므로 Secret으로 관리
-  JWT_KEY: "your-jwt-secret-key-here"
+  JWT_KEY: "KItFWMZokpiSj6ABi42XJpNWbBqUJ4UT3mhLrXk//IjI2TgQy2Bk+2KrCk4cQDl8oFsSYH9Gr++Lqr2w6CYJnQ=="
 # =============================================================================
 # Ingress 설정
 # =============================================================================
