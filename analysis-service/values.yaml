@@ -35,7 +35,7 @@ resources:
 # =============================================================================
 livenessProbe:
   httpGet:
-    path: /
+    path: /health
     port: 8080
   initialDelaySeconds: 60
   periodSeconds: 30
@@ -43,7 +43,7 @@ livenessProbe:
   timeoutSeconds: 10
 readinessProbe:
   httpGet:
-    path: /
+    path: /health
     port: 8080
   initialDelaySeconds: 60
   periodSeconds: 30
