@@ -101,6 +101,8 @@ ingress:
   className: "nginx"
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
   hosts:
     - host: "mong.live"
       paths:
