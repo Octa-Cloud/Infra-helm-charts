@@ -100,13 +100,25 @@ ingress:
   enabled: true
   className: "nginx"
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
     cert-manager.io/cluster-issuer: "letsencrypt"
+    nginx.ingress.kubernetes.io/auth-url: "http://auth-service.microservices-dev.svc.cluster.local:8080/api/auth/internal"
+    nginx.ingress.kubernetes.io/auth-method: "POST"
+    nginx.ingress.kubernetes.io/auth-response-headers: "X-User-No"
+    nginx.ingress.kubernetes.io/auth-snippet: |
+      if ($request_uri ~* "^/api/analysis/health$") {
+        return 200;
+      }
+      if ($request_uri ~* "^/api/analysis/docs") {
+        return 200;
+      }
+      if ($request_uri ~* "^/api/analysis/openapi.json") {
+        return 200;
+      }
   hosts:
     - host: "mong.live"
       paths:
-        - path: /api/analysis(/|$)(.*)
-          pathType: ImplementationSpecific
+        - path: /api/analysis
+          pathType: Prefix
   tls:
     - secretName: mong-live-tls
       hosts:

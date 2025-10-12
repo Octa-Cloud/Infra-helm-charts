@@ -48,6 +48,19 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: "letsencrypt"
+    nginx.ingress.kubernetes.io/auth-url: "http://auth-service.microservices-dev.svc.cluster.local:8080/api/auth/internal"
+    nginx.ingress.kubernetes.io/auth-method: "POST"
+    nginx.ingress.kubernetes.io/auth-response-headers: "X-User-No"
+    nginx.ingress.kubernetes.io/auth-snippet: |
+      if ($request_uri ~* "^/api/users/sign-up$") {
+        return 200;
+      }
+      if ($request_uri ~* "^/api/users/email/send") {
+        return 200;
+      }
+      if ($request_uri ~* "^/api/users/email/verify") {
+        return 200;
+      }
   hosts:
     - host: "mong.live"
       paths:
