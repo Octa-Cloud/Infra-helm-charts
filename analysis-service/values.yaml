@@ -99,7 +99,6 @@ secrets:
   JWT_SECRET: "KItFWMZokpiSj6ABi42XJpNWbBqUJ4UT3mhLrXk//IjI2TgQy2Bk+2KrCk4cQDl8oFsSYH9Gr++Lqr2w6CYJnQ=="
   KAFKA_SASL_USERNAME: "AGQDVMNB6DVPXFX7"
   KAFKA_SASL_PASSWORD: "cfltBaumbQnzwuPIRS3E8S1MNrfqrsb9LXzDvUBPBrP0YQRUTfBqdD2nOKmzUXFw"
-  KAFKA_PROTOBUF_ENABLED: "true"
 # =============================================================================
 # Ingress 설정
 # =============================================================================
