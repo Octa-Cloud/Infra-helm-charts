@@ -44,6 +44,10 @@ spec:
         - name: config
           mountPath: /etc/grafana/grafana.ini
           subPath: grafana.ini
+        - name: provisioning-datasources
+          mountPath: /etc/grafana/provisioning/datasources
+        - name: provisioning-dashboards
+          mountPath: /etc/grafana/provisioning/dashboards
         - name: storage
           mountPath: /var/lib/grafana
         resources:
@@ -68,6 +72,18 @@ spec:
       - name: config
         configMap:
           name: grafana-config
+      - name: provisioning-datasources
+        configMap:
+          name: grafana-config
+          items:
+          - key: datasources.yaml
+            path: datasources.yaml
+      - name: provisioning-dashboards
+        configMap:
+          name: grafana-config
+          items:
+          - key: dashboards.yaml
+            path: dashboards.yaml
       - name: storage
         {{- if .Values.grafana.persistence.enabled }}
         persistentVolumeClaim:
