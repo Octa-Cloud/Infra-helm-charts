@@ -53,31 +53,85 @@ readinessProbe:
 # 환경 변수 설정
 # =============================================================================
 env:
-  REDIS_HOST: "10.226.34.155"
-  REDIS_PORT: "6379"
-  PYTHONUNBUFFERED: "1"
-  MONGODB_URI: "mongodb://mongodb.microservices-dev.svc.cluster.local:27017/mong"
-  DATABASE_URL: "mysql+pymysql://monguser:mongpassword123@localhost:3306/mong-analysis?charset=utf8mb4"
-  DB_USER: "monguser"
-  DB_PASSWORD: "mongpassword123"
+  # FastAPI / Core service
   DB_HOST: "127.0.0.1"
-  DB_PORT: "3306"
-  DB_NAME: "mong-analysis"
-  KAFKA_ENABLED: "true"
-  KAFKA_BROKERS: "pkc-gq2xn.asia-northeast3.gcp.confluent.cloud:9092"
-  KAFKA_SECURITY_PROTOCOL: "SASL_SSL"
-  KAFKA_SASL_MECHANISM: "PLAIN"
-  KAFKA_SESSION_TIMEOUT_MS: "45000"
-  KAFKA_PROTOBUF_ENABLED: "true"
+  DB_PORT: "3307"
+  DB_USER: "root"
+  DB_PASSWORD: "rootpass"
+  DB_NAME: "sleep_test"
+  SQL_ECHO: "false"
+  
+  # Logging
+  LOG_LEVEL: "INFO"
+  LOG_PROFILE: "text"
+  
+  # Sound worker defaults
+  YAMNET_SAMPLE_RATE: "16000"
+  YAMNET_CONFIDENCE: "0.87"
+  YAMNET_MODEL_HANDLE: "https://tfhub.dev/google/yamnet/1"
+  
+  # Sound splitter
+  SOUND_SPLITTER_SAMPLE_RATE: "16000"
+  SOUND_SPLITTER_CHUNK_SECONDS: "30"
+  SOUND_SPLITTER_MAX_CHUNK_BYTES: "200000"
+  FFMPEG_BIN: "ffmpeg"
+  
+  # Processing workers
+  BRAINWAVE_PROC_WORKERS: "2"
+  SOUND_PROC_WORKERS: "2"
+  
+  # Models
+  MODELS_DIR: "./app/models"
+  
+  # Kafka
+  KAFKA_ENABLED: "1"
+  KAFKA_PROTOBUF_ENABLED: "1"
+  KAFKA_BROKERS: "kafka:9092"
+  WAIT_FOR_KAFKA: "1"
+  WAIT_TIMEOUT_SEC: "120"
+  KAFKA_CLUSTER_ID: "LON0w_3SROKgq1Y-efGUBw"
+  
+  # Brainwave topics
   TOPIC_BRAINWAVE_INPUT_RAW: "brainwave.input.raw"
   TOPIC_BRAINWAVE_SPLIT_EPOCHS: "brainwave.split.epochs"
   TOPIC_BRAINWAVE_ANALYZED_EPOCH: "brainwave.analyzed.epoch"
   TOPIC_BRAINWAVE_PERSIST_REQUESTS: "brainwave.persist.requests"
   TOPIC_DLQ: "brainwave.dlq"
+  
+  # Brainwave consumer groups
   GROUP_BRAINWAVE_SPLITTER: "brainwave-splitter"
   GROUP_BRAINWAVE_ANALYZER: "brainwave-analyzer"
   GROUP_BRAINWAVE_AGGREGATOR: "brainwave-aggregator"
   GROUP_BRAINWAVE_DB_WRITER: "brainwave-db-writer"
+  
+  # Sound topics
+  TOPIC_SOUND_INPUT_RAW: "sound.input.raw"
+  TOPIC_SOUND_SPLIT_EPOCHS: "sound.split.epochs"
+  TOPIC_SOUND_ANALYZED_EVENT: "sound.analyzed.event"
+  TOPIC_SOUND_PERSIST_REQUESTS: "sound.persist.requests"
+  
+  # Sound consumer groups
+  GROUP_SOUND_SPLITTER: "sound-splitter"
+  GROUP_SOUND_ANALYZER: "sound-analyzer"
+  GROUP_SOUND_DB_WRITER: "sound-db-writer"
+  
+  # Retry
+  RETRY_MAX_ATTEMPTS: "3"
+  RETRY_BACKOFF_MS: "200"
+  
+  # Sound analysis
+  SOUND_YAMNET_MODEL_URL: "https://tfhub.dev/google/yamnet/1"
+  SOUND_YAMNET_CLASS_MAP_URL: "https://raw.githubusercontent.com/tensorflow/models/master/research/audioset/yamnet/yamnet_class_map.csv"
+  
+  # Legacy/Additional
+  REDIS_HOST: "10.226.34.155"
+  REDIS_PORT: "6379"
+  PYTHONUNBUFFERED: "1"
+  MONGODB_URI: "mongodb://mongodb.microservices-dev.svc.cluster.local:27017/mong"
+  DATABASE_URL: "mysql+pymysql://monguser:mongpassword123@localhost:3306/mong-analysis?charset=utf8mb4"
+  KAFKA_SECURITY_PROTOCOL: "SASL_SSL"
+  KAFKA_SASL_MECHANISM: "PLAIN"
+  KAFKA_SESSION_TIMEOUT_MS: "45000"
 # =============================================================================
 # 서비스 계정 설정
 # =============================================================================
@@ -96,7 +150,15 @@ configMap:
 secrets:
   create: true
   name: ""
+  # JWT Configuration
   JWT_SECRET: "KItFWMZokpiSj6ABi42XJpNWbBqUJ4UT3mhLrXk//IjI2TgQy2Bk+2KrCk4cQDl8oFsSYH9Gr++Lqr2w6CYJnQ=="
+  JWT_ALGORITHM: "HS256"
+  JWT_ACCESS_SUBJECT: "AccessToken"
+  JWT_REFRESH_SUBJECT: "RefreshToken"
+  JWT_TOKEN_HEADER: "Authorization"
+  JWT_BEARER_PREFIX: "Bearer"
+  JWT_ID_CLAIM: "id"
+  # Kafka SASL
   KAFKA_SASL_USERNAME: "AGQDVMNB6DVPXFX7"
   KAFKA_SASL_PASSWORD: "cfltBaumbQnzwuPIRS3E8S1MNrfqrsb9LXzDvUBPBrP0YQRUTfBqdD2nOKmzUXFw"
 # =============================================================================
