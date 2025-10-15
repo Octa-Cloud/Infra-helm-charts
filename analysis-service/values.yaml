@@ -199,7 +199,7 @@ cloudSqlProxy:
 # Blue-Green 배포 설정
 # =============================================================================
 blueGreen:
-  enabled: true
+  enabled: false
   activeHash: "active"
   previewHash: "preview"
   autoPromotionEnabled: false
