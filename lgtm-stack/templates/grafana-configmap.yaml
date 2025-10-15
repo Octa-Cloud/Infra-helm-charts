@@ -1,0 +1,32 @@
+{{- if .Values.grafana.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-config
+  namespace: {{ .Values.namespace.name }}
+  labels:
+    app: grafana
+    component: config
+data:
+  grafana.ini: |
+    [server]
+    root_url = http://localhost:3000/
+    
+    [security]
+    admin_user = {{ .Values.grafana.admin.user }}
+    admin_password = {{ .Values.grafana.admin.password }}
+    
+    [users]
+    allow_sign_up = false
+    
+    [auth.anonymous]
+    enabled = true
+    org_role = Viewer
+    
+    [datasources]
+    default = loki
+    
+    [log]
+    mode = console
+    level = info
+{{- end }}

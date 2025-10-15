@@ -1,0 +1,65 @@
+{{- if .Values.grafana.enabled }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: {{ .Values.namespace.name }}
+  labels:
+    app: grafana
+    component: server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+      component: server
+  template:
+    metadata:
+      labels:
+        app: grafana
+        component: server
+    spec:
+      containers:
+      - name: grafana
+        image: "{{ .Values.grafana.image.repository }}:{{ .Values.grafana.image.tag }}"
+        imagePullPolicy: {{ .Values.grafana.image.pullPolicy }}
+        ports:
+        - containerPort: 3000
+          name: http
+        env:
+        - name: GF_SECURITY_ADMIN_USER
+          value: {{ .Values.grafana.admin.user }}
+        - name: GF_SECURITY_ADMIN_PASSWORD
+          value: {{ .Values.grafana.admin.password }}
+        - name: GF_DATASOURCES_DEFAULT
+          value: loki
+        volumeMounts:
+        - name: config
+          mountPath: /etc/grafana/grafana.ini
+          subPath: grafana.ini
+        - name: storage
+          mountPath: /var/lib/grafana
+        resources:
+          {{- toYaml .Values.grafana.resources | nindent 10 }}
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 60
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 60
+      volumes:
+      - name: config
+        configMap:
+          name: grafana-config
+      - name: storage
+        {{- if .Values.grafana.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: grafana-pvc
+        {{- else }}
+        emptyDir: {}
+        {{- end }}
+{{- end }}
