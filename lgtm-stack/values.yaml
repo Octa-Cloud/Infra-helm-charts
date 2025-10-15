@@ -15,11 +15,11 @@ loki:
   # 리소스 설정
   resources:
     limits:
-      cpu: 500m
-      memory: 1Gi
-    requests:
-      cpu: 200m
+      cpu: 300m
       memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
   
   # 스토리지 설정
   storage:
@@ -51,11 +51,11 @@ grafana:
   # 리소스 설정
   resources:
     limits:
-      cpu: 500m
-      memory: 1Gi
-    requests:
-      cpu: 200m
+      cpu: 300m
       memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
   
   # 서비스 설정
   service:
@@ -95,11 +95,11 @@ tempo:
   # 리소스 설정
   resources:
     limits:
-      cpu: 500m
-      memory: 1Gi
-    requests:
-      cpu: 200m
+      cpu: 300m
       memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
   
   # 서비스 설정
   service:
@@ -125,11 +125,11 @@ mimir:
   # 리소스 설정
   resources:
     limits:
-      cpu: 1000m
-      memory: 2Gi
-    requests:
       cpu: 500m
       memory: 1Gi
+    requests:
+      cpu: 200m
+      memory: 512Mi
   
   # 서비스 설정
   service:
