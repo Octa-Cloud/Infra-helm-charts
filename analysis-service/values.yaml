@@ -7,7 +7,7 @@
 # =============================================================================
 image:
   repository: octacloud/analysis-service
-  tag: "07cb0acf2e9a5ac85f781788a726cba712080a0d-18516323224"
+  tag: "e9c51d2656e7a91381a63205f31447a2dc364df3-18524744265"
   pullPolicy: IfNotPresent
 # =============================================================================
 # 서비스 설정
@@ -79,50 +79,40 @@ env:
   GROUP_BRAINWAVE_ANALYZER: "brainwave-analyzer"
   GROUP_BRAINWAVE_AGGREGATOR: "brainwave-aggregator"
   GROUP_BRAINWAVE_DB_WRITER: "brainwave-db-writer"
-  
   # 새로 추가된 환경변수들 (음성 분석 기능)
   # Logging
   LOG_LEVEL: "INFO"
   LOG_PROFILE: "text"
-  
   # Sound worker defaults
   YAMNET_SAMPLE_RATE: "16000"
   YAMNET_CONFIDENCE: "0.87"
   YAMNET_MODEL_HANDLE: "https://tfhub.dev/google/yamnet/1"
-  
   # Sound splitter
   SOUND_SPLITTER_SAMPLE_RATE: "16000"
   SOUND_SPLITTER_CHUNK_SECONDS: "30"
   SOUND_SPLITTER_MAX_CHUNK_BYTES: "200000"
   FFMPEG_BIN: "ffmpeg"
-  
   # Processing workers
   BRAINWAVE_PROC_WORKERS: "2"
   SOUND_PROC_WORKERS: "2"
-  
   # Models
   MODELS_DIR: "./app/models"
-  
   # Kafka 추가 설정
   WAIT_FOR_KAFKA: "1"
   WAIT_TIMEOUT_SEC: "120"
   KAFKA_CLUSTER_ID: "LON0w_3SROKgq1Y-efGUBw"
-  
   # Sound topics
   TOPIC_SOUND_INPUT_RAW: "sound.input.raw"
   TOPIC_SOUND_SPLIT_EPOCHS: "sound.split.epochs"
   TOPIC_SOUND_ANALYZED_EVENT: "sound.analyzed.event"
   TOPIC_SOUND_PERSIST_REQUESTS: "sound.persist.requests"
-  
   # Sound consumer groups
   GROUP_SOUND_SPLITTER: "sound-splitter"
   GROUP_SOUND_ANALYZER: "sound-analyzer"
   GROUP_SOUND_DB_WRITER: "sound-db-writer"
-  
   # Retry
   RETRY_MAX_ATTEMPTS: "3"
   RETRY_BACKOFF_MS: "200"
-  
   # Sound analysis
   SOUND_YAMNET_MODEL_URL: "https://tfhub.dev/google/yamnet/1"
   SOUND_YAMNET_CLASS_MAP_URL: "https://raw.githubusercontent.com/tensorflow/models/master/research/audioset/yamnet/yamnet_class_map.csv"
@@ -148,7 +138,6 @@ secrets:
   JWT_SECRET: "KItFWMZokpiSj6ABi42XJpNWbBqUJ4UT3mhLrXk//IjI2TgQy2Bk+2KrCk4cQDl8oFsSYH9Gr++Lqr2w6CYJnQ=="
   KAFKA_SASL_USERNAME: "AGQDVMNB6DVPXFX7"
   KAFKA_SASL_PASSWORD: "cfltBaumbQnzwuPIRS3E8S1MNrfqrsb9LXzDvUBPBrP0YQRUTfBqdD2nOKmzUXFw"
-  
   # 새로 추가된 JWT 설정
   JWT_ALGORITHM: "HS256"
   JWT_ACCESS_SUBJECT: "AccessToken"
