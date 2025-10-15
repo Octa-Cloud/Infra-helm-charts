@@ -153,7 +153,7 @@ ingress:
     cert-manager.io/cluster-issuer: "letsencrypt"
     nginx.ingress.kubernetes.io/use-regex: "true"
   hosts:
-    - host: "monitoring.kea-project.com"
+    - host: "monitoring.mong.live"
       paths:
         - path: /grafana
           pathType: Prefix
@@ -167,11 +167,11 @@ ingress:
         - path: /mimir
           pathType: Prefix
           service: mimir
-  # SSL 인증서 임시 비활성화 (개발/테스트 환경)
-  # tls:
-  #   - secretName: monitoring-tls
-  #     hosts:
-  #       - "monitoring.kea-project.com"
+  # SSL 인증서 설정 (mong.live 도메인)
+  tls:
+    - secretName: monitoring-tls
+      hosts:
+        - "monitoring.mong.live"
 
 # =============================================================================
 # 네임스페이스 설정
