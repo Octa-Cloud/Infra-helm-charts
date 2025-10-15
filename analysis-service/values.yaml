@@ -139,6 +139,15 @@ cloudSqlProxy:
   port: 3306
   instance: mong-develop:asia-northeast3:mong-mysql
 # =============================================================================
+# Blue-Green 배포 설정
+# =============================================================================
+blueGreen:
+  enabled: true
+  activeHash: "active"
+  previewHash: "preview"
+  autoPromotionEnabled: false
+  scaleDownDelaySeconds: 30
+# =============================================================================
 # 추가 설정
 # =============================================================================
 podAnnotations: {}

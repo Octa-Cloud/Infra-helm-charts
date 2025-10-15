@@ -1,6 +1,6 @@
-{{- if not .Values.blueGreen.enabled }}
-apiVersion: apps/v1
-kind: Deployment
+{{- if .Values.blueGreen.enabled }}
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: {{ include "analysis-service.fullname" . }}
   labels:
@@ -103,5 +103,22 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+  strategy:
+    blueGreen:
+      activeService: {{ include "analysis-service.fullname" . }}-active
+      previewService: {{ include "analysis-service.fullname" . }}-preview
+      autoPromotionEnabled: false
+      scaleDownDelaySeconds: 30
+      prePromotionAnalysis:
+        templates:
+        - templateName: success-rate
+        args:
+        - name: service-name
+          value: {{ include "analysis-service.fullname" . }}-preview
+      postPromotionAnalysis:
+        templates:
+        - templateName: success-rate
+        args:
+        - name: service-name
+          value: {{ include "analysis-service.fullname" . }}-active
 {{- end }}
-
