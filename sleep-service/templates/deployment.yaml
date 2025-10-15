@@ -8,6 +8,11 @@ spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
   selector:
     matchLabels:
       {{- include "sleep-service.selectorLabels" . | nindent 6 }}
