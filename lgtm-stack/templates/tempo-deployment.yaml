@@ -19,6 +19,13 @@ spec:
         app: tempo
         component: server
     spec:
+      initContainers:
+      - name: init-storage
+        image: busybox:1.35
+        command: ['sh', '-c', 'mkdir -p /tmp/tempo && chmod -R 777 /tmp/tempo']
+        volumeMounts:
+        - name: storage
+          mountPath: /tmp/tempo
       containers:
       - name: tempo
         image: "{{ .Values.tempo.image.repository }}:{{ .Values.tempo.image.tag }}"
@@ -45,12 +52,18 @@ spec:
           httpGet:
             path: /ready
             port: 3200
-          initialDelaySeconds: 30
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
         readinessProbe:
           httpGet:
             path: /ready
             port: 3200
-          initialDelaySeconds: 30
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
       volumes:
       - name: config
         configMap:

@@ -19,6 +19,13 @@ spec:
         app: grafana
         component: server
     spec:
+      initContainers:
+      - name: init-storage
+        image: busybox:1.35
+        command: ['sh', '-c', 'mkdir -p /var/lib/grafana/plugins /var/lib/grafana/dashboards /var/lib/grafana/provisioning && chmod -R 777 /var/lib/grafana']
+        volumeMounts:
+        - name: storage
+          mountPath: /var/lib/grafana
       containers:
       - name: grafana
         image: "{{ .Values.grafana.image.repository }}:{{ .Values.grafana.image.tag }}"
@@ -45,12 +52,18 @@ spec:
           httpGet:
             path: /api/health
             port: 3000
-          initialDelaySeconds: 60
+          initialDelaySeconds: 90
+          periodSeconds: 30
+          timeoutSeconds: 10
+          failureThreshold: 3
         readinessProbe:
           httpGet:
             path: /api/health
             port: 3000
-          initialDelaySeconds: 60
+          initialDelaySeconds: 90
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
       volumes:
       - name: config
         configMap:
