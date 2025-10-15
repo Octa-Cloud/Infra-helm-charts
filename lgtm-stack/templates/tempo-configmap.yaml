@@ -55,5 +55,4 @@ data:
       search:
         duration_slo: 5s
         throughput_bytes_slo: 1.073741824e+09
-        error_slo: 0.01
 {{- end }}

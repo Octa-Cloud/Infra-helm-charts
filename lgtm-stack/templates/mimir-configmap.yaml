@@ -20,7 +20,6 @@ data:
         backend: filesystem
         filesystem:
           dir: /tmp/mimir/blocks
-      replication_factor: 1
     
     memberlist:
       join_members: []
