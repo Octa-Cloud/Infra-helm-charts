@@ -15,12 +15,50 @@ data:
       http_listen_port: 9009
       grpc_listen_port: 9095
     
-    memberlist:
-      join_members: []
+    common:
+      storage:
+        backend: local
+        local:
+          directory: /tmp/mimir/data
+    
+    ingester:
+      ring:
+        kvstore:
+          store: inmemory
+      max_transfer_retries: 0
+    
+    distributor:
+      ring:
+        kvstore:
+          store: inmemory
+    
+    query_scheduler:
+      ring:
+        kvstore:
+          store: inmemory
+    
+    querier:
+      query_timeout: 30s
+    
+    query_frontend:
+      ring:
+        kvstore:
+          store: inmemory
+    
+    store_gateway:
+      ring:
+        kvstore:
+          store: inmemory
+    
+    compactor:
+      ring:
+        kvstore:
+          store: inmemory
     
     limits:
       ingestion_rate: 10000
       ingestion_burst_size: 20000
       max_global_series_per_user: 100000
       max_global_series_per_metric: 50000
+      max_query_parallelism: 32
 {{- end }}

@@ -22,7 +22,7 @@ spec:
       initContainers:
       - name: init-storage
         image: busybox:1.35
-        command: ['sh', '-c', 'mkdir -p /tmp/mimir && chmod -R 777 /tmp/mimir']
+        command: ['sh', '-c', 'mkdir -p /tmp/mimir/data && chmod -R 777 /tmp/mimir']
         volumeMounts:
         - name: storage
           mountPath: /tmp/mimir
