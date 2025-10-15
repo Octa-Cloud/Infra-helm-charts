@@ -15,52 +15,15 @@ data:
       http_listen_port: 9009
       grpc_listen_port: 9095
     
-    distributor:
-      ring:
-        kvstore:
-          store: memberlist
-    
-    ingester:
-      ring:
-        kvstore:
-          store: memberlist
-        replication_factor: 1
-    
-    store_gateway:
-      ring:
-        kvstore:
-          store: memberlist
-    
-    compactor:
-      ring:
-        kvstore:
-          store: memberlist
-    
-    querier:
-      ring:
-        kvstore:
-          store: memberlist
-    
-    query_frontend:
-      ring:
-        kvstore:
-          store: memberlist
+    common:
+      storage:
+        backend: filesystem
+        filesystem:
+          dir: /tmp/mimir/blocks
+      replication_factor: 1
     
     memberlist:
       join_members: []
-    
-    blocks_storage:
-      backend: filesystem
-      filesystem:
-        dir: /tmp/mimir/blocks
-      bucket_store:
-        sync_dir: /tmp/mimir/bucket-sync
-      tsdb:
-        dir: /tmp/mimir/tsdb
-        retention_period: 24h
-    
-    storage:
-      engine: blocks
     
     limits:
       ingestion_rate: 10000
