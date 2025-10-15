@@ -167,10 +167,11 @@ ingress:
         - path: /mimir
           pathType: Prefix
           service: mimir
-  tls:
-    - secretName: monitoring-tls
-      hosts:
-        - "monitoring.kea-project.com"
+  # SSL 인증서 임시 비활성화 (개발/테스트 환경)
+  # tls:
+  #   - secretName: monitoring-tls
+  #     hosts:
+  #       - "monitoring.kea-project.com"
 
 # =============================================================================
 # 네임스페이스 설정
