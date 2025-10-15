@@ -158,15 +158,19 @@ ingress:
         - path: /grafana
           pathType: Prefix
           service: grafana
+          port: 3000
         - path: /loki
           pathType: Prefix
           service: loki
+          port: 3100
         - path: /tempo
           pathType: Prefix
           service: tempo
+          port: 3200
         - path: /mimir
           pathType: Prefix
           service: mimir
+          port: 9009
   # SSL 인증서 설정 (mong.live 도메인)
   tls:
     - secretName: monitoring-tls

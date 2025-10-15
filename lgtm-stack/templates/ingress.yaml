@@ -36,7 +36,7 @@ spec:
               service:
                 name: {{ .service }}
                 port:
-                  number: 80
+                  number: {{ .port | default 80 }}
           {{- end }}
     {{- end }}
 {{- end }}
