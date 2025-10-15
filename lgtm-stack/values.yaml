@@ -37,6 +37,7 @@ loki:
     enabled: true
     size: 10Gi
     storageClass: standard
+    suffix: "v2"
 
 # =============================================================================
 # Grafana (시각화) 설정
