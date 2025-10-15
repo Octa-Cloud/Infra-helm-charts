@@ -86,7 +86,7 @@ grafana:
 # Tempo (분산 추적) 설정
 # =============================================================================
 tempo:
-  enabled: false
+  enabled: true
   image:
     repository: grafana/tempo
     tag: "2.1.0"
@@ -116,7 +116,7 @@ tempo:
 # Mimir (메트릭 저장) 설정
 # =============================================================================
 mimir:
-  enabled: false
+  enabled: true
   image:
     repository: grafana/mimir
     tag: "2.9.0"
