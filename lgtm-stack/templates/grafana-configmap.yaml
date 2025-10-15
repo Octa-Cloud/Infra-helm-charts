@@ -30,6 +30,9 @@ data:
     [log]
     mode = console
     level = info
+
+    [dashboards]
+    default_home_dashboard_path = /etc/grafana/dashboards/home-dashboard.json
     
     [provisioning]
     datasources = /etc/grafana/provisioning/datasources
@@ -94,5 +97,34 @@ data:
         updateIntervalSeconds: 10
         allowUiUpdates: true
         options:
-          path: /var/lib/grafana/dashboards
+          path: /etc/grafana/dashboards
+
+  home-dashboard.json: |
+    {
+      "id": null,
+      "uid": "home-overview",
+      "title": "Observability Overview",
+      "timezone": "browser",
+      "schemaVersion": 38,
+      "version": 1,
+      "refresh": "30s",
+      "time": { "from": "now-1h", "to": "now" },
+      "panels": [
+        {
+          "type": "logs",
+          "title": "Recent Logs (Loki)",
+          "datasource": { "type": "loki", "uid": "P8E80F9AEF21F6940" },
+          "gridPos": { "x": 0, "y": 0, "w": 24, "h": 10 },
+          "targets": [ { "expr": "{namespace=\"microservices-dev\"}" } ]
+        },
+        {
+          "type": "timeseries",
+          "title": "CPU Usage (example)",
+          "datasource": { "type": "prometheus", "uid": "PAE45454D0EDB9216" },
+          "gridPos": { "x": 0, "y": 10, "w": 24, "h": 8 },
+          "fieldConfig": { "defaults": {}, "overrides": [] },
+          "targets": [ { "expr": "up" } ]
+        }
+      ]
+    }
 {{- end }}
