@@ -19,6 +19,13 @@ spec:
         app: loki
         component: server
     spec:
+      initContainers:
+      - name: init-storage
+        image: busybox:1.35
+        command: ['sh', '-c', 'mkdir -p /loki/rules /loki/chunks /loki/boltdb-shipper-active /loki/boltdb-shipper-cache /loki/boltdb-shipper-compactor && chmod -R 755 /loki']
+        volumeMounts:
+        - name: storage
+          mountPath: /loki
       containers:
       - name: loki
         image: "{{ .Values.loki.image.repository }}:{{ .Values.loki.image.tag }}"
