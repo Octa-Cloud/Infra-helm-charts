@@ -191,7 +191,7 @@ blueGreen:
   enabled: true
   activeHash: "active"
   previewHash: "preview"
-  autoPromotionEnabled: false
+  autoPromotionEnabled: true
   scaleDownDelaySeconds: 30
 # =============================================================================
 # 추가 설정
