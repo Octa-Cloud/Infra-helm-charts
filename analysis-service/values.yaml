@@ -134,10 +134,10 @@ configMap:
 secrets:
   create: true
   name: ""
-  # 기존 JWT 및 Kafka SASL (유지)
-  JWT_SECRET: "KItFWMZokpiSj6ABi42XJpNWbBqUJ4UT3mhLrXk//IjI2TgQy2Bk+2KrCk4cQDl8oFsSYH9Gr++Lqr2w6CYJnQ=="
-  KAFKA_SASL_USERNAME: "AGQDVMNB6DVPXFX7"
-  KAFKA_SASL_PASSWORD: "cfltBaumbQnzwuPIRS3E8S1MNrfqrsb9LXzDvUBPBrP0YQRUTfBqdD2nOKmzUXFw"
+  # 민감정보는 Sealed Secrets로 관리합니다. (빈 값 유지)
+  JWT_SECRET: ""
+  KAFKA_SASL_USERNAME: ""
+  KAFKA_SASL_PASSWORD: ""
   # 새로 추가된 JWT 설정
   JWT_ALGORITHM: "HS256"
   JWT_ACCESS_SUBJECT: "AccessToken"
@@ -145,6 +145,13 @@ secrets:
   JWT_TOKEN_HEADER: "Authorization"
   JWT_BEARER_PREFIX: "Bearer"
   JWT_ID_CLAIM: "id"
+sealedSecrets:
+  enabled: true
+  encryptedData:
+    # 다음 키에 kubeseal로 암호화한 값을 세팅하세요
+    # JWT_SECRET: "<encrypted>"
+    # KAFKA_SASL_USERNAME: "<encrypted>"
+    # KAFKA_SASL_PASSWORD: "<encrypted>"
 # =============================================================================
 # Ingress 설정
 # =============================================================================
