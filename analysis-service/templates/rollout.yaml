@@ -107,18 +107,6 @@ spec:
     blueGreen:
       activeService: {{ include "analysis-service.fullname" . }}-active
       previewService: {{ include "analysis-service.fullname" . }}-preview
-      autoPromotionEnabled: false
-      scaleDownDelaySeconds: 30
-      prePromotionAnalysis:
-        templates:
-        - templateName: success-rate
-        args:
-        - name: service-name
-          value: {{ include "analysis-service.fullname" . }}-preview
-      postPromotionAnalysis:
-        templates:
-        - templateName: success-rate
-        args:
-        - name: service-name
-          value: {{ include "analysis-service.fullname" . }}-active
+      autoPromotionEnabled: {{ .Values.blueGreen.autoPromotionEnabled }}
+      scaleDownDelaySeconds: {{ .Values.blueGreen.scaleDownDelaySeconds }}
 {{- end }}
