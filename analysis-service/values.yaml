@@ -201,5 +201,8 @@ podSecurityContext: {}
 securityContext: {}
 imagePullSecrets: []
 autoscaling:
-  enabled: false
+  enabled: true
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 70
 lifecycle: {}

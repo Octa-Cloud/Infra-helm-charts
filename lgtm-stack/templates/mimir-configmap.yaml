@@ -18,28 +18,11 @@ data:
     memberlist:
       join_members: []
     
-    # 스토리지 설정
-    blocks_storage:
-      backend: local
-      local:
-        directory: /tmp/mimir/blocks
-    
-    alertmanager_storage:
-      backend: local
-      local:
-        directory: /tmp/mimir/alertmanager
-    
-    ruler_storage:
-      backend: local
-      local:
-        directory: /tmp/mimir/ruler
-    
     # 기본 인메모리 설정
     ingester:
       ring:
         kvstore:
           store: inmemory
-      max_transfer_retries: 0
     
     distributor:
       ring:
@@ -52,22 +35,7 @@ data:
           store: inmemory
     
     querier:
-      query_timeout: 30s
-    
-    query_frontend:
-      ring:
-        kvstore:
-          store: inmemory
-    
-    store_gateway:
-      ring:
-        kvstore:
-          store: inmemory
-    
-    compactor:
-      ring:
-        kvstore:
-          store: inmemory
+      timeout: 30s
     
     limits:
       ingestion_rate: 10000

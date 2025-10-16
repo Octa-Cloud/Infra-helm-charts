@@ -96,6 +96,12 @@ spec:
           items:
           - key: home-dashboard.json
             path: home-dashboard.json
+          - key: lgtm-overview-dashboard.json
+            path: lgtm-overview-dashboard.json
+          - key: microservices-dashboard.json
+            path: microservices-dashboard.json
+          - key: analysis-service-dashboard.json
+            path: analysis-service-dashboard.json
       - name: storage
         {{- if .Values.grafana.persistence.enabled }}
         persistentVolumeClaim:
