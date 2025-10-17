@@ -35,7 +35,11 @@ spec:
             pathType: {{ .pathType }}
             backend:
               service:
+                {{- if $.Values.blueGreen.enabled }}
+                name: {{ include "analysis-service.fullname" $ }}-active
+                {{- else }}
                 name: {{ include "analysis-service.fullname" $ }}
+                {{- end }}
                 port:
                   number: {{ $.Values.service.port }}
           {{- end }}
