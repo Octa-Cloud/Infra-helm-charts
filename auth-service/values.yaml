@@ -79,7 +79,7 @@ secrets:
 sealedSecrets:
   enabled: true
   encryptedData:
-    # JWT_KEY: "<encrypted>"
+    JWT_KEY: "AgB/bPKLhctcDv8h7zAnEC8Hw17UV6ew3vN2sKlF6Yy49A1Ib9cQwBjCo/VC2zuh0ssEEqL/MYi67kGSrVN8iRnGDmOGDRwXJce9RFj942PIoxQEadUtHbd0HAmn4FF7ITQ5dbzy633jtZA4v8QHjTUdBntNQqq9Rh2hnY0RaLyQQ5NpZ2vaSdffK+mm9uk1tCrcyZd5NqUGo3LYtS+Nt7YTiDyT/t0s4hi2aSQ3NVWTBO7tmNr3Z/l7X0udVGVpDD9Ds6mRwSKkuqdAVUo97UKwTjj8hlepqOJ/t9MIXDO5xqom2rU/jM2WhOiUJrlM1NM75aQ/Y5+bbl6H/bPVZ5k0srkGYp26E7nKPMotxeGsW0vvOj9tSNAKpFvY4E7cMc4t14qjhmQCOaKeUyirLxig4xw9zhCYGVGnV9XYPKlnAQduYIffi0fdmFw3k5qI3V+zRoNzhpmrCNd0B/MTC1hAxiwvas7pYDnEpxrIAEWN1bXfKwiYURXLnUUEZClBAlzoALAyNwzpvOSfskFkSdPeDpT9gj4ghvPPgqXAhw65TuqrKmj7ieBsFbx7QsWDWVWjShDc7vA02jRYnRDPmBi52DMSuJXg0zTh9GLWAJMleU1t474uNLFWLX0IzhXCVVD5r029vYKH6J0MGiBc047hN2O+JA2n+3FlUr56J+cZZ3BqXXDvGzXZ7J60r+BLEfT2aU/fDMfVx1aCIy83gZxI4Zg/gcxIyxN5hdYF2zycPwuPb0NgQFp84s08aQQUWWATa8RkKX1xUedjQqqEar2RoouSLSePkd9Xk+4ePs3kaUlYf2BHlqXTRQ=="
 # =============================================================================
 # Ingress 설정
 # =============================================================================
