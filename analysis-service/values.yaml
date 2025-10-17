@@ -100,7 +100,7 @@ env:
   # Kafka 추가 설정
   WAIT_FOR_KAFKA: "1"
   WAIT_TIMEOUT_SEC: "120"
-  KAFKA_CLUSTER_ID: "LON0w_3SROKgq1Y-efGUBw"
+  KAFKA_CLUSTER_ID: "lkc-md8p3q"
   # Sound topics
   TOPIC_SOUND_INPUT_RAW: "sound.input.raw"
   TOPIC_SOUND_SPLIT_EPOCHS: "sound.split.epochs"
