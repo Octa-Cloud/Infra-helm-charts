@@ -163,14 +163,14 @@ ingress:
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
   hosts:
-    - host: "mong.live"
+    - host: "api.mong.live"
       paths:
         - path: /api/analysis
           pathType: Prefix
   tls:
-    - secretName: mong-live-tls
+    - secretName: api-mong-live-tls
       hosts:
-        - "mong.live"
+        - "api.mong.live"
 # =============================================================================
 # 노드 선택자
 # =============================================================================

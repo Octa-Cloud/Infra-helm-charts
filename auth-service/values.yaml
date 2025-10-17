@@ -89,14 +89,14 @@ ingress:
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt"
   hosts:
-    - host: "mong.live"
+    - host: "api.mong.live"
       paths:
         - path: /api/auth
           pathType: Prefix
   tls:
-    - secretName: mong-live-tls
+    - secretName: api-mong-live-tls
       hosts:
-        - "mong.live"
+        - "api.mong.live"
 # =============================================================================
 # 노드 선택자
 # =============================================================================

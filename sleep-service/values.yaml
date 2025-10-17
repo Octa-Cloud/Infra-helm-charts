@@ -97,14 +97,14 @@ ingress:
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
   hosts:
-    - host: "mong.live"
+    - host: "api.mong.live"
       paths:
         - path: /api/sleep
           pathType: Prefix
   tls:
-    - secretName: mong-live-tls
+    - secretName: api-mong-live-tls
       hosts:
-        - "mong.live"
+        - "api.mong.live"
 # =============================================================================
 # Cloud SQL Proxy 설정 (필요시)
 # =============================================================================
