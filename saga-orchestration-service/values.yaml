@@ -56,7 +56,7 @@ env:
   # Database configuration
   RDB_USERNAME: "monguser"
   RDB_PASSWORD: "mongpassword123"
-  RDB_URL: "jdbc:mysql://localhost:3306/mong-saga?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+  RDB_URL: "jdbc:mysql://localhost:3306/mong?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
   # Logging
   LOG_LEVEL: "INFO"
   LOG_PROFILE: "text"
