@@ -60,3 +60,14 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Create the name of the secret to use
+*/}}
+{{- define "saga-orchestration-service.secretName" -}}
+{{- if .Values.secrets.create }}
+{{- default (include "saga-orchestration-service.fullname" .) .Values.secrets.name }}
+{{- else }}
+{{- default "default" .Values.secrets.name }}
+{{- end }}
+{{- end }}
