@@ -75,12 +75,6 @@ configMap:
 # =============================================================================
 # Secret 설정
 # =============================================================================
-secrets:
-  create: true
-  name: ""
-  # Kafka SASL 인증 정보 (Base64 인코딩된 값)
-  KAFKA_SASL_USERNAME: "a2Fma2F1c2Vy"  # kafkauser (base64)
-  KAFKA_SASL_PASSWORD: "a2Fma2FwYXNzd29yZDEyMw=="  # kafkapassword123 (base64)
 sealedSecrets:
   enabled: true
   encryptedData:
