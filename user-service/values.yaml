@@ -3,7 +3,7 @@ replicaCount: 1
 image:
   repository: octacloud/user-service
   pullPolicy: IfNotPresent
-  tag: "4d1960015a6f651a880eb4e2d8d9390096c7b6bf-18424574526"
+  tag: "321a7f545d7734ebdc29bdcf0abc8e6463840b34-18611646110"
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: "user-service"
@@ -157,7 +157,7 @@ affinity: {}
 # 배포 전략 설정
 # =============================================================================
 blueGreen:
-  enabled: false  # Rolling Update 사용
+  enabled: false # Rolling Update 사용
 # =============================================================================
 # Metrics
 # =============================================================================
