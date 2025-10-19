@@ -54,6 +54,17 @@ ingress:
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
     nginx.ingress.kubernetes.io/auth-snippet: |
+      # OPTIONS 요청은 CORS preflight이므로 인증 제외하고 CORS 헤더 추가
+      if ($request_method = 'OPTIONS') {
+        add_header 'Access-Control-Allow-Origin' '$http_origin' always;
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS, PATCH, HEAD' always;
+        add_header 'Access-Control-Allow-Headers' 'Authorization, Content-Type, X-Requested-With, Accept, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, X-User-Id, Cache-Control, Pragma' always;
+        add_header 'Access-Control-Allow-Credentials' 'true' always;
+        add_header 'Access-Control-Max-Age' '3600' always;
+        add_header 'Content-Length' 0;
+        add_header 'Content-Type' 'text/plain charset=UTF-8';
+        return 204;
+      }
       # Internal API 경로는 인증 제외
       if ($uri ~ ^/api/users/internal) {
         return 200;
