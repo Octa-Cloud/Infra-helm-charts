@@ -1,0 +1,14 @@
+apiVersion: v2
+name: monitoring-stack
+description: A Helm chart for Grafana + Prometheus monitoring stack
+type: application
+version: 0.1.0
+appVersion: "1.0.0"
+keywords:
+  - monitoring
+  - grafana
+  - prometheus
+home: https://grafana.com/
+maintainers:
+  - name: KEA Project
+    email: dev@kea-project.com
