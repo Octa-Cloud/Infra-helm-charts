@@ -110,8 +110,14 @@ ingress:
         add_header 'Access-Control-Max-Age' '3600' always;
         add_header 'Content-Length' 0;
         add_header 'Content-Type' 'text/plain charset=UTF-8';
+        add_header 'Access-Control-Allow-Origin' '*' always;
         return 204;
       }
+    nginx.ingress.kubernetes.io/cors-allow-origin: "http://localhost:5173, https://www.mong.live, http://www.mong.live"
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST, PUT, DELETE, OPTIONS, PATCH, HEAD"
+    nginx.ingress.kubernetes.io/cors-allow-headers: "Authorization, Content-Type, X-Requested-With, Accept, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, X-User-Id, Cache-Control, Pragma"
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    nginx.ingress.kubernetes.io/cors-max-age: "3600"
   hosts:
     - host: "api.mong.live"
       paths:
