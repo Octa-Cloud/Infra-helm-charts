@@ -121,9 +121,6 @@ ingress:
   className: "nginx"
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt"
-    nginx.ingress.kubernetes.io/auth-url: "http://auth-service.microservices-dev.svc.cluster.local:8080/api/auth/internal"
-    nginx.ingress.kubernetes.io/auth-method: "POST"
-    nginx.ingress.kubernetes.io/auth-request-headers: "Authorization, X-User-Id"
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
     nginx.ingress.kubernetes.io/enable-cors: "true"
@@ -132,18 +129,6 @@ ingress:
     nginx.ingress.kubernetes.io/cors-allow-headers: "Authorization, Content-Type, X-Requested-With, Accept, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, X-User-Id, Cache-Control, Pragma"
     nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
     nginx.ingress.kubernetes.io/cors-max-age: "3600"
-    nginx.ingress.kubernetes.io/auth-snippet: |
-      # OPTIONS 요청은 CORS preflight이므로 인증 제외하고 CORS 헤더 추가
-      if ($request_method = 'OPTIONS') {
-        add_header 'Access-Control-Allow-Origin' '$http_origin' always;
-        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, OPTIONS, PATCH, HEAD' always;
-        add_header 'Access-Control-Allow-Headers' 'Authorization, Content-Type, X-Requested-With, Accept, Origin, Access-Control-Request-Method, Access-Control-Request-Headers, X-User-Id, Cache-Control, Pragma' always;
-        add_header 'Access-Control-Allow-Credentials' 'true' always;
-        add_header 'Access-Control-Max-Age' '3600' always;
-        add_header 'Content-Length' 0;
-        add_header 'Content-Type' 'text/plain charset=UTF-8';
-        return 204;
-      }
   hosts:
     - host: "api.mong.live"
       paths:
