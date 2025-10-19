@@ -44,7 +44,7 @@ spec:
             {{- end }}
             {{- if .Values.secrets.create }}
             {{- range $key, $value := .Values.secrets }}
-            {{- if and (ne $key "create") (ne $key "name") (ne $key "encryptedData") }}
+            {{- if and (ne $key "create") (ne $key "name") (ne $key "encryptedData") (ne $value "") }}
             - name: {{ $key }}
               valueFrom:
                 secretKeyRef:
