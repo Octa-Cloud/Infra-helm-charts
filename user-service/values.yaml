@@ -48,7 +48,7 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: "letsencrypt"
-    nginx.ingress.kubernetes.io/auth-url: "http://auth-service.microservices-dev.svc.cluster.local:8080/api/auth/internal"
+    nginx.ingress.kubernetes.io/auth-url: "http://auth-service.microservices-dev.svc.cluster.local:8080/api/auth/verify"
     nginx.ingress.kubernetes.io/auth-method: "POST"
     nginx.ingress.kubernetes.io/auth-request-headers: "Authorization"
     nginx.ingress.kubernetes.io/use-regex: "true"
