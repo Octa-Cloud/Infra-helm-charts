@@ -53,9 +53,16 @@ ingress:
     nginx.ingress.kubernetes.io/auth-request-headers: "Authorization"
     nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    nginx.ingress.kubernetes.io/auth-snippet: |
+      # Internal API 경로는 인증 제외
+      if ($uri ~ ^/api/users/internal) {
+        return 200;
+      }
   hosts:
     - host: "api.mong.live"
       paths:
+        - path: /api/users/internal
+          pathType: Prefix
         - path: /api/users
           pathType: Prefix
   tls:
