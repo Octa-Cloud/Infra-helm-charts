@@ -61,3 +61,24 @@ Create the name of the service account to use
 {{- end }}
 {{- end }}
 
+{{/*
+Create the name of the configmap to use
+*/}}
+{{- define "analysis-service.configMapName" -}}
+{{- if .Values.configMap.create }}
+{{- default (include "analysis-service.fullname" .) .Values.configMap.name }}
+{{- else }}
+{{- default "default" .Values.configMap.name }}
+{{- end }}
+{{- end }}
+
+{{/*
+Create the name of the secret to use
+*/}}
+{{- define "analysis-service.secretName" -}}
+{{- if .Values.secrets.create }}
+{{- default (include "analysis-service.fullname" .) .Values.secrets.name }}
+{{- else }}
+{{- default "default" .Values.secrets.name }}
+{{- end }}
+{{- end }}

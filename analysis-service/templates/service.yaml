@@ -1,4 +1,3 @@
-{{- if not .Values.blueGreen.enabled }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -14,5 +13,3 @@ spec:
       name: http
   selector:
     {{- include "analysis-service.selectorLabels" . | nindent 4 }}
-{{- end }}
-

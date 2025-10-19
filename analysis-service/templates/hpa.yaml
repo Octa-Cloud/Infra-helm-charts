@@ -7,25 +7,20 @@ metadata:
     {{- include "analysis-service.labels" . | nindent 4 }}
 spec:
   scaleTargetRef:
-    {{- if .Values.blueGreen.enabled }}
-    apiVersion: argoproj.io/v1alpha1
-    kind: Rollout
-    name: {{ include "analysis-service.fullname" . }}
-    {{- else }}
     apiVersion: apps/v1
     kind: Deployment
     name: {{ include "analysis-service.fullname" . }}
-    {{- end }}
-  minReplicas: {{ .Values.autoscaling.minReplicas | default 1 }}
-  maxReplicas: {{ .Values.autoscaling.maxReplicas | default 3 }}
+  minReplicas: {{ .Values.autoscaling.minReplicas }}
+  maxReplicas: {{ .Values.autoscaling.maxReplicas }}
   metrics:
-    {{- $cpu := .Values.autoscaling.targetCPUUtilizationPercentage | default 70 }}
+    {{- if .Values.autoscaling.targetCPUUtilizationPercentage }}
     - type: Resource
       resource:
         name: cpu
         target:
           type: Utilization
-          averageUtilization: {{ $cpu }}
+          averageUtilization: {{ .Values.autoscaling.targetCPUUtilizationPercentage }}
+    {{- end }}
     {{- if .Values.autoscaling.targetMemoryUtilizationPercentage }}
     - type: Resource
       resource:
@@ -35,5 +30,3 @@ spec:
           averageUtilization: {{ .Values.autoscaling.targetMemoryUtilizationPercentage }}
     {{- end }}
 {{- end }}
-
-
