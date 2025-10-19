@@ -64,7 +64,6 @@ env:
   SPRING_REDIS_HOST: "10.226.34.155"
   SPRING_REDIS_PORT: "6379"
   # JWT 설정
-  JWT_KEY: ""
   JWT_ACCESS_SUBJECT: "AccessToken"
   JWT_TOKEN_HEADER: "Authorization"
   JWT_BEARER: "Bearer"
