@@ -32,6 +32,32 @@ grafana:
   service:
     type: ClusterIP
     port: 3000
+  dashboardProviders:
+    dashboardproviders.yaml:
+      apiVersion: 1
+      providers:
+      - name: 'default'
+        orgId: 1
+        folder: ''
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
+  dashboards:
+    default:
+      analysis-service-dashboard:
+        file: dashboards/analysis-service-dashboard.json
+      sleep-service-dashboard:
+        file: dashboards/sleep-service-dashboard.json
+      auth-service-dashboard:
+        file: dashboards/auth-service-dashboard.json
+      user-service-dashboard:
+        file: dashboards/user-service-dashboard.json
+      saga-orchestration-service-dashboard:
+        file: dashboards/saga-orchestration-service-dashboard.json
+      overview-dashboard:
+        file: dashboards/overview-dashboard.json
   ingress:
     enabled: true
     className: "nginx"
